@@ -15,17 +15,15 @@
                 <Separator Foreground="Black"/>
                 <MenuItem Header="Exit" Foreground="Black"/>
             </MenuItem>
-            <MenuItem x:Name="ProfileMenuItem" Header="Profile">
-                <MenuItem Header="Search" Foreground="Black"/>
-            </MenuItem>
+            <MenuItem x:Name="ProfileMenuItem" Header="Profile"/>
         </Menu>
         <Grid x:Name="BackupWorkspacke" HorizontalAlignment="Left" Height="402" Margin="0,19,0,0" VerticalAlignment="Top" Width="794">
-            <ListBox x:Name="Backuplist" HorizontalAlignment="Left" Height="377" Margin="0,25,0,0" VerticalAlignment="Top" Width="400" Background="#FF0F0E0E" BorderBrush="Black"/>
+            <ListBox x:Name="Backuplist" HorizontalAlignment="Left" Height="372" Margin="0,30,0,0" VerticalAlignment="Top" Width="400" Background="#FF0F0E0E" BorderBrush="Black"/>
             <Button x:Name="Createback_Button" Content="Create Backup" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" Width="95" Background="#FF1F1D1D" Foreground="White" BorderBrush="#FF3F3F46"/>
             <Button x:Name="CheckFiles_button" Content="Check Files" HorizontalAlignment="Left" Margin="100,5,0,0" VerticalAlignment="Top" Width="95" Background="#FF1F1D1D" Foreground="White" BorderBrush="#FF3F3F46"/>
             <ProgressBar x:Name="PB1" HorizontalAlignment="Left" Height="11" Margin="684,14,0,0" VerticalAlignment="Top" Width="100" IsIndeterminate="True" Background="#FF1F1D1D" BorderBrush="#FF1F1D1D"/>
         </Grid>
-        <Frame x:Name="StartUpFrame" Content="" Background="#FF1F1D1D" Source="/ESO SavedVariables Auto backup;component/StartUpWindow.xaml" NavigationUIVisibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Height="419" Width="792" Margin="0"/>
+        <Frame x:Name="StartUpFrame" Content="" Background="#FF1F1D1D" Source="/ESO SavedVariables Auto backup;component/StartUpWindow.xaml" NavigationUIVisibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Height="419" Width="792" Margin="0" d:IsHidden="True"/>
 
     </Grid>
 </Window>

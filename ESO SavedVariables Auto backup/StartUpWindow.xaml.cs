@@ -31,6 +31,7 @@ namespace ESO_SavedVariables_Auto_backup
 			Page_0.Visibility = Visibility.Visible;
 			Page_1.Visibility = Visibility.Hidden;
 			Page_2.Visibility = Visibility.Hidden;
+			Page_3.Visibility = Visibility.Hidden;
 		}
 
 		private void Next_Button_Click(object sender, RoutedEventArgs e)
@@ -47,6 +48,18 @@ namespace ESO_SavedVariables_Auto_backup
 				Page_1.Visibility = Visibility.Hidden;
 				Page_2.Visibility = Visibility.Visible;
 				Page_2_Load();
+			}
+			else if (currentSteep == 2)
+			{
+				currentSteep++;
+				Page_2.Visibility = Visibility.Hidden;
+				Page_3.Visibility = Visibility.Visible;
+				Next_Button.Content = "Finish";
+			}
+			else if (currentSteep == 3)
+			{
+				currentSteep++;
+				Finish_settings();
 			}
 		}
 		
@@ -86,6 +99,26 @@ namespace ESO_SavedVariables_Auto_backup
 				}
 			}
 		}
+
+		private void Finish_settings()
+		{
+			SettingsVars.Backupdir = BackupDir;
+			SettingsVars.ESODir = ESODir;
+			SettingsVars.firstsettings_finish();
+			foreach (CheckBox CB in addprofiles_LV.Items)
+			{
+				//System.Diagnostics.Debug.WriteLine(CB.Tag);
+				if (CB.IsChecked == true)
+				{
+					SVProfile SVP = new SVProfile();
+					SVP.Name = CB.Content.ToString();
+					SVP.Path = CB.Tag.ToString();
+					SettingsVars.addprofile(SVP);
+				}
+			}
+			MainWindow.init();
+		}
+
 		private void Search_ESOFolder(string path)
 		{
 			string ESOFolder = path + "\\Elder Scrolls Online";
