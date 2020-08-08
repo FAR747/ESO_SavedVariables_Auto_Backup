@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,12 +28,17 @@ namespace ESO_SavedVariables_Auto_backup
 		public static string VERSION_NAME = "1.0";
 
 		public FileIniDataParser gIniParser = new FileIniDataParser();
+		public static SVProfile LoadedProfile;
 
 		#region UI
 		public static Grid ui_BackupWorkspacke;
 		public static Frame Frame_Startup;
 		public static MenuItem gProfileMenuItem;
 		public static ListBox gBackuplist;
+		public static ProgressBar gPB1;
+		public delegate void InvokeDelegate_gPB1(Visibility visibility);
+		public static Button gCreateback_Button;
+		public delegate void InvokeDelegate_gCB1(bool enabled);
 		#endregion UI
 
 		public MainWindow()
@@ -43,7 +49,11 @@ namespace ESO_SavedVariables_Auto_backup
 			Frame_Startup = StartUpFrame;
 			gProfileMenuItem = ProfileMenuItem;
 			gBackuplist = Backuplist;
+			gPB1 = PB1;
+			gCreateback_Button = Createback_Button;
 			#endregion InitUI
+			gPB1.Visibility = Visibility.Hidden;
+
 			init();
 		}
 		public static void init()
@@ -59,6 +69,17 @@ namespace ESO_SavedVariables_Auto_backup
 			else
 			{
 				Frame_Startup.Visibility = Visibility.Visible;
+			}
+		}
+		public static void setBP_Visible(bool isvisible)
+		{
+			if (isvisible)
+			{
+				gPB1.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				gPB1.Visibility = Visibility.Hidden;
 			}
 		}
 		static void profile_init()
@@ -88,6 +109,7 @@ namespace ESO_SavedVariables_Auto_backup
 			string profilename = pressed.Name.Replace("RBProfile_", "");
 			string profilepath = pressed.Tag.ToString();
 			LoadProfile(profilename, profilepath);
+			gProfileMenuItem.Header = String.Format("Profile ({0})", profilename);
 			
 		}
 
@@ -102,6 +124,7 @@ namespace ESO_SavedVariables_Auto_backup
 				{
 					profile = SVP;
 					found = true;
+					LoadedProfile = SVP;
 					break;
 				}
 			}
@@ -110,16 +133,41 @@ namespace ESO_SavedVariables_Auto_backup
 				LoadBackups(profile.Name);
 			}
 		}
-		static void LoadBackups(string name)
+		public static void LoadBackups(string name)
 		{
 			string path = SettingsVars.Backupdir + "\\" + name;
+			gBackuplist.Items.Clear();
 			string manifest = path + "\\backupdirectory.cfg";
+			FileIniDataParser parser = new FileIniDataParser();
 			DirectoryInfo files = new DirectoryInfo(path);
 			foreach (FileInfo file in files.GetFiles("*.ESVAB.zip"))
 			{
 				//SVFile.Foreground = new SolidColorBrush(Colors.White);
-
+				System.Diagnostics.Debug.WriteLine(file.FullName);
+				string cfgname = file.FullName.Replace(".zip", ".backup");
+				string bpath = file.FullName;
+				if (File.Exists(cfgname))
+				{
+					IniData data = parser.ReadFile(cfgname);
+					string bname = data["config"]["name"];
+					string bverstr = data["config"]["ver"];
+					string bdatestr = data["config"]["date"];
+					DateTime bDT = SettingsFuncs.UnixTimeStampToDateTime(Convert.ToInt64(bdatestr));
+					string bDateTime = bDT.ToString("G", DateTimeFormatInfo.InvariantInfo);
+					string UCName = String.Format("{0} Backup {1}",name,bDateTime);
+					long size = file.Length;
+					size = size / 1024;
+					BackupInfo_list_UC BILUC = new BackupInfo_list_UC(bname, String.Format("{0}kb",size), bpath,bDateTime);
+					gBackuplist.Items.Add(BILUC);
+				}
 			}
+		}
+
+		private void Createback_Button_Click(object sender, RoutedEventArgs e)
+		{
+			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+			string name = String.Format("Backup_{0}", unixTimestamp);
+			Backups.Create(LoadedProfile, name);
 		}
 	}
 }
