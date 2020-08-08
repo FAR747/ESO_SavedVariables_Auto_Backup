@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ESO_SavedVariables_Auto_backup"
-             mc:Ignorable="d" d:DesignWidth="800" Width="385" Height="60" Background="#FF333337" BorderBrush="#FF434346" Padding="0" Margin="0" BorderThickness="1">
+             mc:Ignorable="d" d:DesignWidth="800" Width="372" Height="60" Background="#FF333337" BorderBrush="#FF434346" Padding="0" Margin="0" BorderThickness="1">
     <Grid>
-        <Label x:Name="Label_Name" Content="Name" HorizontalAlignment="Left" Margin="0,15,0,0" VerticalAlignment="Top" Width="383" Foreground="White"/>
-        <Label x:Name="Label_Size" Content="Size" HorizontalAlignment="Left" Height="17" Margin="200,41,0,0" VerticalAlignment="Top" Width="183" Foreground="White" HorizontalContentAlignment="Right" Padding="0,0,1,0"/>
-        <Label x:Name="Label_Date" Content="Date" HorizontalAlignment="Left" Height="15" Margin="188,0,0,0" VerticalAlignment="Top" Width="195" Foreground="White" Padding="0,0,1,0" FontSize="10" HorizontalContentAlignment="Right"/>
+        <Label x:Name="Label_Name" Content="Name" HorizontalAlignment="Left" Margin="0,15,0,0" VerticalAlignment="Top" Width="368" Foreground="White"/>
+        <Label x:Name="Label_Size" Content="Size" HorizontalAlignment="Left" Height="17" Margin="187,41,0,0" VerticalAlignment="Top" Width="183" Foreground="White" HorizontalContentAlignment="Right" Padding="0,0,1,0"/>
+        <Label x:Name="Label_Date" Content="Date" HorizontalAlignment="Left" Height="15" Margin="175,0,0,0" VerticalAlignment="Top" Width="195" Foreground="White" Padding="0,0,1,0" FontSize="10" HorizontalContentAlignment="Right"/>
     </Grid>
 </UserControl>

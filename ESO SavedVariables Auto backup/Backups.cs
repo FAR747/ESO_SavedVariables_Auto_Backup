@@ -59,5 +59,23 @@ namespace ESO_SavedVariables_Auto_backup
 			parser.WriteFile(fullpathmanifest, manifest);
 			
 		}
+		public static List<string> getfilesinbackup(string path)
+		{
+			List<string> files = new List<string>();
+			if (File.Exists(path))
+			{
+				var backup = ZipFile.OpenRead(path);
+				foreach (ZipArchiveEntry entry in backup.Entries)
+				{
+					files.Add(entry.Name);
+				}
+			}
+			else
+			{
+				files.Add("Error: Backup not found!");
+			}
+			return files;
+
+		}
 	}
 }

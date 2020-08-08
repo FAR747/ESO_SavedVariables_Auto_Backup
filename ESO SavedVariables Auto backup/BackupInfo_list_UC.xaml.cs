@@ -20,7 +20,7 @@ namespace ESO_SavedVariables_Auto_backup
 	/// </summary>
 	public partial class BackupInfo_list_UC : UserControl
 	{
-		public static string gname, gsize, gpath, date;
+		public string gname, gsize, gpath, gdate;
 		public BackupInfo_list_UC(string name, string size, string path, string date)
 		{
 			InitializeComponent();
@@ -29,7 +29,8 @@ namespace ESO_SavedVariables_Auto_backup
 			Label_Date.Content = date;
 			gpath = path;
 			gsize = size;
-			gpath = path;
+			gname = name;
+			gdate = date;
 		}
 	}
 }

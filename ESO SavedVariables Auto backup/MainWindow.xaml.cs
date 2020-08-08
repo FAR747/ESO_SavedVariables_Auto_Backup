@@ -39,6 +39,8 @@ namespace ESO_SavedVariables_Auto_backup
 		public delegate void InvokeDelegate_gPB1(Visibility visibility);
 		public static Button gCreateback_Button;
 		public delegate void InvokeDelegate_gCB1(bool enabled);
+		public static MenuItem gOpenESOFolder_MItem;
+		public static MenuItem gOpenESOSVFolder_MItem;
 		#endregion UI
 
 		public MainWindow()
@@ -51,9 +53,12 @@ namespace ESO_SavedVariables_Auto_backup
 			gBackuplist = Backuplist;
 			gPB1 = PB1;
 			gCreateback_Button = Createback_Button;
+			gOpenESOFolder_MItem = OpenESOFolder_MItem;
+			gOpenESOSVFolder_MItem = OpenESOSVFolder_MItem;
 			#endregion InitUI
 			gPB1.Visibility = Visibility.Hidden;
-
+			backup_info_grid.Visibility = Visibility.Hidden;
+			CheckFiles_button.Visibility = Visibility.Hidden;
 			init();
 		}
 		public static void init()
@@ -131,6 +136,8 @@ namespace ESO_SavedVariables_Auto_backup
 			if (found)
 			{
 				LoadBackups(profile.Name);
+				gOpenESOFolder_MItem.Header = String.Format("Open {0} folder", profile.Name);
+				gOpenESOSVFolder_MItem.Header = String.Format("Open {0} SavedVars folder", profile.Name);
 			}
 		}
 		public static void LoadBackups(string name)
@@ -140,10 +147,11 @@ namespace ESO_SavedVariables_Auto_backup
 			string manifest = path + "\\backupdirectory.cfg";
 			FileIniDataParser parser = new FileIniDataParser();
 			DirectoryInfo files = new DirectoryInfo(path);
-			foreach (FileInfo file in files.GetFiles("*.ESVAB.zip"))
+			FileInfo[] dFiles = files.GetFiles("*.ESVAB.zip").OrderByDescending(p => p.CreationTime).ToArray();
+			foreach (FileInfo file in dFiles)
 			{
 				//SVFile.Foreground = new SolidColorBrush(Colors.White);
-				System.Diagnostics.Debug.WriteLine(file.FullName);
+				//System.Diagnostics.Debug.WriteLine(file.FullName);
 				string cfgname = file.FullName.Replace(".zip", ".backup");
 				string bpath = file.FullName;
 				if (File.Exists(cfgname))
@@ -168,6 +176,58 @@ namespace ESO_SavedVariables_Auto_backup
 			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			string name = String.Format("Backup_{0}", unixTimestamp);
 			Backups.Create(LoadedProfile, name);
+		}
+
+		private void Backuplist_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			BackupInfo_list_UC curitem = (BackupInfo_list_UC)Backuplist.SelectedItem;
+			if (curitem == null)
+			{
+				backup_info_grid.Visibility = Visibility.Hidden;
+				return;
+			}
+			backup_info_grid.Visibility = Visibility.Visible;
+			BackupNameTB.Text = curitem.gname;
+			BackupSizeTB.Text = curitem.gsize;
+			BackupDateTB.Text = curitem.gdate;
+			OpenBackupFile.Tag = curitem.gpath;
+			BackupFileslist.Items.Clear();
+			List<string> files = Backups.getfilesinbackup(curitem.gpath);
+			foreach (String file in files)
+			{
+				ListBoxItem item = new ListBoxItem();
+				item.Content = file;
+				item.Foreground = new SolidColorBrush(Colors.White);
+				BackupFileslist.Items.Add(item);
+			}
+			
+			//System.Diagnostics.Debug.WriteLine(curitem.gname);
+		}
+
+		private void OpenBackupFile_Click(object sender, RoutedEventArgs e)
+		{
+			if (OpenBackupFile.Tag != null)
+			{
+				if (File.Exists(OpenBackupFile.Tag.ToString()))
+				{
+					System.Diagnostics.Process.Start(OpenBackupFile.Tag.ToString());
+				}
+			}
+		}
+
+		private void OpenESOFolder_MItem_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start(LoadedProfile.Path.Replace("SavedVariables", ""));
+		}
+
+		private void OpenESOSVFolder_MItem_Click(object sender, RoutedEventArgs e)
+		{
+			System.Diagnostics.Process.Start(LoadedProfile.Path);
+		}
+
+		private void Exit_MI_Click(object sender, RoutedEventArgs e)
+		{
+			System.Windows.Application.Current.Shutdown();
 		}
 	}
 }

@@ -13,15 +13,29 @@
                 <MenuItem Header="Settings" Foreground="Black"/>
                 <CheckBox Content="Enable Auto Backup"/>
                 <Separator Foreground="Black"/>
-                <MenuItem Header="Exit" Foreground="Black"/>
+                <MenuItem x:Name="OpenESOFolder_MItem" Foreground="Black" Header="OpenESOFolder" Click="OpenESOFolder_MItem_Click"/>
+                <MenuItem x:Name="OpenESOSVFolder_MItem" Foreground="Black" Header="OpenESOSVFolder" Click="OpenESOSVFolder_MItem_Click"/>
+                <Separator/>
+                <MenuItem x:Name="Exit_MI" Header="Exit" Foreground="Black" Click="Exit_MI_Click"/>
             </MenuItem>
             <MenuItem x:Name="ProfileMenuItem" Header="Profile"/>
         </Menu>
         <Grid x:Name="BackupWorkspacke" HorizontalAlignment="Left" Height="402" Margin="0,19,0,0" VerticalAlignment="Top" Width="794">
-            <ListBox x:Name="Backuplist" HorizontalAlignment="Left" Height="372" Margin="0,30,0,0" VerticalAlignment="Top" Width="400" Background="#FF0F0E0E" BorderBrush="Black"/>
+            <ListBox x:Name="Backuplist" HorizontalAlignment="Left" Height="372" Margin="0,30,0,0" VerticalAlignment="Top" Width="405" Background="#FF0F0E0E" BorderBrush="Black" SelectionChanged="Backuplist_SelectionChanged" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
             <Button x:Name="Createback_Button" Content="Create Backup" HorizontalAlignment="Left" Margin="0,5,0,0" VerticalAlignment="Top" Width="95" Background="#FF1F1D1D" Foreground="White" BorderBrush="#FF3F3F46" Click="Createback_Button_Click"/>
             <Button x:Name="CheckFiles_button" Content="Check Files" HorizontalAlignment="Left" Margin="100,5,0,0" VerticalAlignment="Top" Width="95" Background="#FF1F1D1D" Foreground="White" BorderBrush="#FF3F3F46"/>
             <ProgressBar x:Name="PB1" HorizontalAlignment="Left" Height="11" Margin="684,14,0,0" VerticalAlignment="Top" Width="100" IsIndeterminate="True" Background="#FF1F1D1D" BorderBrush="#FF1F1D1D"/>
+            <Grid x:Name="backup_info_grid" HorizontalAlignment="Left" Height="372" Margin="405,30,0,0" VerticalAlignment="Top" Width="389">
+                <Label Content="Name:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <TextBox x:Name="BackupNameTB" HorizontalAlignment="Left" Height="26" Margin="59,10,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="313" OpacityMask="Black" Foreground="White" SelectionBrush="#FF0070C9" Background="#FF333337" BorderBrush="#FF333337" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label Content="Creation Date:" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <TextBox x:Name="BackupDateTB" HorizontalAlignment="Left" Height="26" Margin="98,41,0,0" TextWrapping="Wrap" Text="Date" VerticalAlignment="Top" Width="274" OpacityMask="Black" Foreground="White" SelectionBrush="#FF0070C9" Background="#FF333337" BorderBrush="#FF333337" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label Content="Size:" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <TextBox x:Name="BackupSizeTB" HorizontalAlignment="Left" Height="26" Margin="49,72,0,0" TextWrapping="Wrap" Text="Size" VerticalAlignment="Top" Width="323" OpacityMask="Black" Foreground="White" SelectionBrush="#FF0070C9" Background="#FF333337" BorderBrush="#FF333337" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <ListBox x:Name="BackupFileslist" HorizontalAlignment="Left" Height="193" Margin="10,131,0,0" VerticalAlignment="Top" Width="362" Background="#FF0F0E0E" BorderBrush="Black" SelectionChanged="Backuplist_SelectionChanged"/>
+                <Label Content="Files:" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" Foreground="White"/>
+                <Button x:Name="OpenBackupFile" Content="Open archive" HorizontalAlignment="Left" Margin="293,329,0,0" VerticalAlignment="Top" Width="79" Height="26" Background="#FF333337" Foreground="White" BorderBrush="#FF434346" Click="OpenBackupFile_Click"/>
+            </Grid>
         </Grid>
         <Frame x:Name="StartUpFrame" Content="" Background="#FF1F1D1D" Source="/ESO SavedVariables Auto backup;component/StartUpWindow.xaml" NavigationUIVisibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Left" Height="419" Width="792" Margin="0" d:IsHidden="True"/>
 
