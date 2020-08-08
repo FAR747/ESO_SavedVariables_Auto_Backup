@@ -12,33 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IniParser;
-using IniParser.Model;
 
 namespace ESO_SavedVariables_Auto_backup
 {
 	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
+	/// Логика взаимодействия для StartUpWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class StartUpWindow : Page
 	{
-		public FileIniDataParser gIniParser = new FileIniDataParser();
-
-		#region UI
-		public static Grid ui_BackupWorkspacke;
-		#endregion UI
-
-		public MainWindow()
+		public StartUpWindow()
 		{
 			InitializeComponent();
-			#region InitUI
-			ui_BackupWorkspacke = BackupWorkspacke;
-			#endregion InitUI
-			init();
-		}
-		private void init()
-		{
-
 		}
 	}
 }
