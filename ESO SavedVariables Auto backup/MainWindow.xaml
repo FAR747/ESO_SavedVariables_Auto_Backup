@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ESO_SavedVariables_Auto_backup"
         xmlns:awe="http://schemas.awesomium.com/winfx" x:Name="MainWindow1" x:Class="ESO_SavedVariables_Auto_backup.MainWindow"
         mc:Ignorable="d"
-        Title="ESO SavedVariables Auto backup" Height="450" Width="800" Background="#FF1F1D1D" ResizeMode="CanMinimize">
+        Title="ESO SavedVariables Auto backup" Height="450" Width="800" Background="#FF1F1D1D" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Menu HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="794" Background="#FF1F1D1D" Foreground="White">
             <MenuItem Header="File" Foreground="White">
@@ -15,6 +15,8 @@
                 <Separator Foreground="Black"/>
                 <MenuItem x:Name="OpenESOFolder_MItem" Foreground="Black" Header="OpenESOFolder" Click="OpenESOFolder_MItem_Click"/>
                 <MenuItem x:Name="OpenESOSVFolder_MItem" Foreground="Black" Header="OpenESOSVFolder" Click="OpenESOSVFolder_MItem_Click"/>
+                <Separator/>
+                <MenuItem Foreground="Black" Header="About program"/>
                 <Separator/>
                 <MenuItem x:Name="Exit_MI" Header="Exit" Foreground="Black" Click="Exit_MI_Click"/>
             </MenuItem>
