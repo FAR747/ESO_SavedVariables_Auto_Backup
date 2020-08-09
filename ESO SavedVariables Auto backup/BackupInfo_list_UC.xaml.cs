@@ -24,7 +24,7 @@ namespace ESO_SavedVariables_Auto_backup
 		public BackupInfo_list_UC(string name, string size, string path, string date)
 		{
 			InitializeComponent();
-			Label_Name.Content = name;
+			Label_Name.Content = name.Replace("_","__");
 			Label_Size.Content = size;
 			Label_Date.Content = date;
 			gpath = path;

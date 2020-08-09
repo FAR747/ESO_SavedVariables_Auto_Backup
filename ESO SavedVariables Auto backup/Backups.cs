@@ -15,20 +15,29 @@ namespace ESO_SavedVariables_Auto_backup
 	{
 		public static int BACKUP_VERSION = 1;
 		public delegate void InvokeDelegate_gPB1();
-		public static void Create(SVProfile Profile, string name)
+		public static void Create(SVProfile Profile, string name, bool usetack)
 		{
 
 			string SVpath = Profile.Path;
 			string backupdir = SettingsVars.Backupdir + "\\" + Profile.Name;
 			if (Directory.Exists(backupdir))
 			{
-				MainWindow.setBP_Visible(true);
-				MainWindow.gCreateback_Button.IsEnabled = false;
-				Task t = Task.Run(() => CreateBackup(name,SVpath,backupdir,Profile.Name));
-				t.ContinueWith((BakcupTask) =>
+				MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Visible));
+				MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = false));
+				if (usetack)
 				{
-					CreateBackup_complete();
-				});
+					Task t = Task.Run(() => CreateBackup(name, SVpath, backupdir, Profile.Name));
+					t.ContinueWith((BakcupTask) =>
+					{
+						CreateBackup_complete();
+					});
+				}
+				else
+				{
+					CreateBackup(name, SVpath, backupdir, Profile.Name);
+					MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Hidden));
+					MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = true));
+				}
 			}
 			else
 			{
@@ -58,6 +67,25 @@ namespace ESO_SavedVariables_Auto_backup
 			manifest["config"].AddKey("ver", BACKUP_VERSION.ToString());
 			parser.WriteFile(fullpathmanifest, manifest);
 			
+		}
+
+		public static void RestoreBackup(string path, string outputpath)
+		{
+			if (!File.Exists(path))
+			{
+				return;
+			}
+			ZipArchive archive = ZipFile.OpenRead(path);
+			foreach (ZipArchiveEntry file in archive.Entries)
+			{
+				string completeFileName = Path.Combine(outputpath, file.FullName);
+				if (file.Name == "")
+				{// Assuming Empty for Directory
+					Directory.CreateDirectory(Path.GetDirectoryName(completeFileName));
+					continue;
+				}
+				file.ExtractToFile(completeFileName, true);
+			}
 		}
 		public static List<string> getfilesinbackup(string path)
 		{

@@ -35,12 +35,15 @@ namespace ESO_SavedVariables_Auto_backup
 		public static Frame Frame_Startup;
 		public static MenuItem gProfileMenuItem;
 		public static ListBox gBackuplist;
+		public static ListBox gBackuplistFiles;
 		public static ProgressBar gPB1;
 		public delegate void InvokeDelegate_gPB1(Visibility visibility);
 		public static Button gCreateback_Button;
 		public delegate void InvokeDelegate_gCB1(bool enabled);
 		public static MenuItem gOpenESOFolder_MItem;
 		public static MenuItem gOpenESOSVFolder_MItem;
+		public static RestoreBackupPage gRestoreBackupPage;
+		public static Frame gRestoreBackupFrame;
 		#endregion UI
 
 		public MainWindow()
@@ -51,14 +54,17 @@ namespace ESO_SavedVariables_Auto_backup
 			Frame_Startup = StartUpFrame;
 			gProfileMenuItem = ProfileMenuItem;
 			gBackuplist = Backuplist;
+			//gBackuplistFiles = BackupFileslist;
 			gPB1 = PB1;
 			gCreateback_Button = Createback_Button;
 			gOpenESOFolder_MItem = OpenESOFolder_MItem;
 			gOpenESOSVFolder_MItem = OpenESOSVFolder_MItem;
+			gRestoreBackupFrame = RestoreBackupFrame;
 			#endregion InitUI
 			gPB1.Visibility = Visibility.Hidden;
 			backup_info_grid.Visibility = Visibility.Hidden;
 			CheckFiles_button.Visibility = Visibility.Hidden;
+			RestoreBackupFrame.Visibility = Visibility.Hidden;
 			init();
 		}
 		public static void init()
@@ -175,7 +181,7 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			string name = String.Format("Backup_{0}", unixTimestamp);
-			Backups.Create(LoadedProfile, name);
+			Backups.Create(LoadedProfile, name, true);
 		}
 
 		private void Backuplist_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -228,6 +234,18 @@ namespace ESO_SavedVariables_Auto_backup
 		private void Exit_MI_Click(object sender, RoutedEventArgs e)
 		{
 			System.Windows.Application.Current.Shutdown();
+		}
+
+		private void RestoreBackupBTN_Click(object sender, RoutedEventArgs e)
+		{
+			gRestoreBackupPage = null;
+			//gRestoreBackupPage = new RestoreBackupPage();
+			BackupInfo_list_UC curitem = (BackupInfo_list_UC)Backuplist.SelectedItem;
+			string name = curitem.gname;
+			string path = curitem.gpath;
+			gRestoreBackupPage = new RestoreBackupPage(LoadedProfile,path,name);
+			gRestoreBackupFrame.Navigate(gRestoreBackupPage);
+			gRestoreBackupFrame.Visibility = Visibility.Visible;
 		}
 	}
 }
