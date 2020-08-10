@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ESO_SavedVariables_Auto_backup"
         xmlns:awe="http://schemas.awesomium.com/winfx" x:Name="MainWindow1" x:Class="ESO_SavedVariables_Auto_backup.MainWindow"
         mc:Ignorable="d"
-        Title="ESO SavedVariables Auto backup" Height="450" Width="800" Background="#FF1F1D1D" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="ESO SavedVariables Auto backup" Height="450" Width="800" Background="#FF1F1D1D" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Closed="MainWindow1_Closed">
     <Grid>
         <Menu HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="794" Background="#FF1F1D1D" Foreground="White">
             <MenuItem x:Name="Settings_MT" Header="File" Foreground="White" Click="Settings_MT_Click">

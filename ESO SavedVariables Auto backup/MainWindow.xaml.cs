@@ -31,6 +31,8 @@ namespace ESO_SavedVariables_Auto_backup
 		public static SVProfile LoadedProfile;
 
 		#region UI
+		public static System.Windows.Forms.NotifyIcon ni;
+		public static bool run_startMinimized = false;
 		public static Grid ui_BackupWorkspacke;
 		public static Frame Frame_Startup;
 		public static MenuItem gProfileMenuItem;
@@ -65,7 +67,36 @@ namespace ESO_SavedVariables_Auto_backup
 			backup_info_grid.Visibility = Visibility.Hidden;
 			CheckFiles_button.Visibility = Visibility.Hidden;
 			RestoreBackupFrame.Visibility = Visibility.Hidden;
+
+			#region tray
+			ni = new System.Windows.Forms.NotifyIcon();
+			Stream iconStream = Application.GetResourceStream(new Uri("pack://application:,,,/esvab_icon.ico")).Stream;
+			ni.Icon = new System.Drawing.Icon(iconStream);
+			ni.Visible = true;
+			ni.DoubleClick +=
+				delegate (object sender, EventArgs args)
+				{
+					this.Show();
+					this.WindowState = WindowState.Normal;
+				};
+			ni.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
+			ni.ContextMenuStrip.Items.Add("Show").Click += (s, e) => { this.Show(); this.WindowState = WindowState.Normal; };
+			ni.ContextMenuStrip.Items.Add("Create Backup").Click += (s, e) => Createback_Button_Click(null,null);
+			ni.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => Exit_MI_Click(null,null);
+			#endregion tray
+
 			init();
+			if (run_startMinimized)
+			{
+				this.Hide();
+				this.WindowState = WindowState.Minimized;
+			}
+		}
+		protected override void OnStateChanged(EventArgs e)
+		{
+			if (WindowState == System.Windows.WindowState.Minimized)
+				this.Hide();
+			base.OnStateChanged(e);
 		}
 		public static void init()
 		{
@@ -76,6 +107,15 @@ namespace ESO_SavedVariables_Auto_backup
 				SettingsVars.LoadProfiles();
 				Frame_Startup.Visibility = Visibility.Hidden;
 				profile_init();
+				run_startMinimized = false;
+				StartupEventArgs args = App.gARGS;
+				for (int i = 0; i != args.Args.Length; ++i)
+				{
+					if (args.Args[i] == "-StartMinimized")
+					{
+						run_startMinimized = true;
+					}
+				}
 			}
 			else
 			{
@@ -251,6 +291,12 @@ namespace ESO_SavedVariables_Auto_backup
 		private void Settings_MT_Click(object sender, RoutedEventArgs e)
 		{
 			new SettingsWindow().ShowDialog();
+		}
+
+		private void MainWindow1_Closed(object sender, EventArgs e)
+		{
+			ni.Visible = false;
+			ni.Dispose();
 		}
 	}
 }

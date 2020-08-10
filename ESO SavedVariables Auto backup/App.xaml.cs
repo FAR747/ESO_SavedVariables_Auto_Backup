@@ -16,9 +16,11 @@ namespace ESO_SavedVariables_Auto_backup
 	/// </summary>
 	public partial class App : Application
 	{
+		public static StartupEventArgs gARGS;
 		protected override void OnStartup(StartupEventArgs args)
 		{
 			base.OnStartup(args);
+			gARGS = args;
 			//System.Diagnostics.Debug.WriteLine("Process NAME: " + System.Diagnostics.Process.GetCurrentProcess().ProcessName);
 			if (!InstanceCheck())
 			{
@@ -82,5 +84,6 @@ namespace ESO_SavedVariables_Auto_backup
 				}
 			}
 		}
+
 	}
 }
