@@ -7,14 +7,14 @@
         mc:Ignorable="d"
         Title="ESVAB Settings" Height="448.834" Width="459.585" Background="#FF1F1D1D" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="SaveBTN" Content="Save" HorizontalAlignment="Left" Margin="365,384,0,0" VerticalAlignment="Top" Width="79" Height="26" Background="#FF333337" Foreground="White" BorderBrush="#FF434346"/>
+        <Button x:Name="SaveBTN" Content="Save" HorizontalAlignment="Left" Margin="365,384,0,0" VerticalAlignment="Top" Width="79" Height="26" Background="#FF333337" Foreground="White" BorderBrush="#FF434346" Click="SaveBTN_Click"/>
         <Button x:Name="ClearBTN" Content="Clear" HorizontalAlignment="Left" Margin="281,384,0,0" VerticalAlignment="Top" Width="79" Height="26" Background="#FF333337" Foreground="White" BorderBrush="#FF434346" Click="ClearBTN_Click"/>
         <Label Content="Auto Backup Settings:" HorizontalAlignment="Left" Margin="0,73,0,0" VerticalAlignment="Top" Width="454" Foreground="White" FontSize="16"/>
         <Label x:Name="Label_version" Content="Version" HorizontalAlignment="Left" Width="175" Foreground="White" FontSize="10" VerticalContentAlignment="Bottom" Padding="1,5,5,2" Height="20" VerticalAlignment="Bottom"/>
-        <CheckBox Content="Automatic backup at program start" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
-        <CheckBox Content="Automatic backup when closing ESO" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
+        <CheckBox x:Name="autobackup_startup_CB" Content="Automatic backup at program start" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
+        <CheckBox x:Name="autobackup_exitESO_CB" Content="Automatic backup when closing ESO" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
         <Label Content="Program Settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="454" Foreground="White" FontSize="16"/>
-        <CheckBox Content="Run the program at Windows startup" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
+        <CheckBox x:Name="startupWindows_CB" Content="Run the program at Windows startup" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
 
     </Grid>
 </Window>

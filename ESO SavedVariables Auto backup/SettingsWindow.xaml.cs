@@ -23,10 +23,22 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			InitializeComponent();
 			Label_version.Content = String.Format("Version {0} ({1})", MainWindow.VERSION_NAME, MainWindow.VERSION_CODE);
+			startupWindows_CB.IsChecked = SettingsFuncs.getstartupwindows();
+			autobackup_startup_CB.IsChecked = SettingsVars.autobackup_startup;
+			autobackup_exitESO_CB.IsChecked = SettingsVars.autobackup_exitESO;
 		}
 
 		private void ClearBTN_Click(object sender, RoutedEventArgs e)
 		{
+			this.Close();
+		}
+
+		private void SaveBTN_Click(object sender, RoutedEventArgs e)
+		{
+			SettingsFuncs.setstartupwindows(startupWindows_CB.IsChecked.Value);
+			SettingsVars.autobackup_startup = autobackup_startup_CB.IsChecked.Value;
+			SettingsVars.autobackup_exitESO = autobackup_exitESO_CB.IsChecked.Value;
+			SettingsVars.SaveConfig();
 			this.Close();
 		}
 	}

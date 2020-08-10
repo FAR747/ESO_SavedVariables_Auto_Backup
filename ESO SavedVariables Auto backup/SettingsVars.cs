@@ -19,6 +19,11 @@ namespace ESO_SavedVariables_Auto_backup
 		public static string configpath = appdata + "/ESVAB.cfg";
 		static int Sav_Version = -1;
 
+		#region settings
+		public static bool autobackup_startup = false;
+		public static bool autobackup_exitESO = false;
+		#endregion settings
+
 		public static void firstsettings_finish()
 		{
 			if (!Directory.Exists(Backupdir))
@@ -30,6 +35,9 @@ namespace ESO_SavedVariables_Auto_backup
 			gConfig["config"].AddKey("ESODir", ESODir);
 			gConfig["config"].AddKey("BackupDir", Backupdir);
 			gConfig["config"].AddKey("Version", MainWindow.VERSION_CODE.ToString());
+
+			gConfig["config"].AddKey("autobackup_startup", "false");
+			gConfig["config"].AddKey("autobackup_exitESO", "false");
 			FileIniDataParser parser = new FileIniDataParser();
 			parser.WriteFile(appdata + "/ESVAB.cfg", gConfig);
 		}
@@ -37,12 +45,47 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			if (checkExistConf())
 			{
+				bool savecfg = false;
 				FileIniDataParser parser = new FileIniDataParser();
 				IniData gConfig = parser.ReadFile(configpath);
 				ESODir = gConfig["config"]["ESODir"];
 				Backupdir = gConfig["config"]["BackupDir"];
 				Sav_Version = Convert.ToInt32(gConfig["config"]["Version"]);
+
+				if (gConfig["config"]["autobackup_startup"] != null)
+				{
+					autobackup_startup = bool.Parse(gConfig["config"]["autobackup_startup"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
+				if (gConfig["config"]["autobackup_exitESO"] != null)
+				{
+					autobackup_exitESO = bool.Parse(gConfig["config"]["autobackup_exitESO"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
+				if (savecfg)
+				{
+					SaveConfig();
+				}
 			}
+		}
+		public static void SaveConfig()
+		{
+			IniData gConfig = new IniData();
+			gConfig.Sections.AddSection("config");
+			gConfig["config"].AddKey("ESODir", ESODir);
+			gConfig["config"].AddKey("BackupDir", Backupdir);
+			gConfig["config"].AddKey("Version", MainWindow.VERSION_CODE.ToString());
+
+			gConfig["config"].AddKey("autobackup_startup", autobackup_startup.ToString());
+			gConfig["config"].AddKey("autobackup_exitESO", autobackup_exitESO.ToString());
+			FileIniDataParser parser = new FileIniDataParser();
+			parser.WriteFile(appdata + "/ESVAB.cfg", gConfig);
 		}
 		public static void LoadProfiles()
 		{

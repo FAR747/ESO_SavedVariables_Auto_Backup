@@ -11,7 +11,7 @@
         <Menu HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="794" Background="#FF1F1D1D" Foreground="White">
             <MenuItem x:Name="Settings_MT" Header="File" Foreground="White" Click="Settings_MT_Click">
                 <MenuItem Header="Settings" Foreground="Black"/>
-                <CheckBox Content="Enable Auto Backup"/>
+                <!--<CheckBox Content="Enable Auto Backup"/>-->
                 <Separator Foreground="Black"/>
                 <MenuItem x:Name="OpenESOFolder_MItem" Foreground="Black" Header="OpenESOFolder" Click="OpenESOFolder_MItem_Click"/>
                 <MenuItem x:Name="OpenESOSVFolder_MItem" Foreground="Black" Header="OpenESOSVFolder" Click="OpenESOSVFolder_MItem_Click"/>
