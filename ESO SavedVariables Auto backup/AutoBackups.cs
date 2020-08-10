@@ -29,7 +29,7 @@ namespace ESO_SavedVariables_Auto_backup
 				System.Diagnostics.Debug.WriteLine("ESO Status: " + ESORunned);
 			}
 			TimerCallback tm = new TimerCallback(Timer_tick);
-			timer = new Timer(tm, 0, 0, 120000); //2mins 120000
+			timer = new Timer(tm, 0, 0, 10000); //2mins 120000
 		}
 
 		static void Timer_tick(object obj)
@@ -58,7 +58,19 @@ namespace ESO_SavedVariables_Auto_backup
 		}
 		static bool CheckESO()
 		{
-			return System.Diagnostics.Process.GetProcessesByName("eso64").Any();
+			bool check = System.Diagnostics.Process.GetProcessesByName("eso64").Any();
+
+			if (check)
+			{
+				MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gMini_Message.Content = "ESO Running"));
+				MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gMini_Message.Visibility = System.Windows.Visibility.Visible));
+			}
+			else
+			{
+				MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gMini_Message.Visibility = System.Windows.Visibility.Hidden));
+			}
+
+			return check;
 		}
 	}
 }

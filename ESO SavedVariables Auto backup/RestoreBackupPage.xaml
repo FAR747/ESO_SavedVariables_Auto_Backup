@@ -21,6 +21,11 @@
         <ProgressBar x:Name="PB1" HorizontalAlignment="Left" Height="11" Margin="587,320,0,0" VerticalAlignment="Top" Width="163" IsIndeterminate="True" Background="#FF1F1D1D" BorderBrush="#FF1F1D1D"/>
         <Label x:Name="Message_label" Content="Restore in progress. Please wait. DO NOT close the program!" HorizontalAlignment="Left" Margin="243,364,0,0" VerticalAlignment="Top" Width="339" Foreground="White"/>
         <Label x:Name="Log_label" Content="Starting" HorizontalAlignment="Left" Margin="587,336,0,0" VerticalAlignment="Top" Width="163" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBlock x:Name="ESORunning_message" HorizontalAlignment="Left" Margin="10,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="362" Height="55" Foreground="Red">
+            <Run Text="ESO Running!" FontWeight="Bold"/>
+            <LineBreak/>
+            <Run Text="Exit to the main menu to restore the backup normally. Otherwise, the restoration will not bring results." Foreground="White"/>
+        </TextBlock>
 
     </Grid>
 </Page>

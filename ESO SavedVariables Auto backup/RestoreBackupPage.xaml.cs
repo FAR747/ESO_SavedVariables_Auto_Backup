@@ -40,6 +40,14 @@ namespace ESO_SavedVariables_Auto_backup
 			gpath = path;
 			gname = name;
 			RestoreBackup_Label.Content = String.Format(PageLabel_Def, name.Replace("_","__"), SVP.Name);
+			if (AutoBackups.ESORunned)
+			{
+				ESORunning_message.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				ESORunning_message.Visibility = Visibility.Hidden;
+			}
 			List<string> files = Backups.getfilesinbackup(path);
 			foreach (String file in files)
 			{

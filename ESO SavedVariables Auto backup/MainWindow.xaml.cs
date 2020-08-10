@@ -46,6 +46,7 @@ namespace ESO_SavedVariables_Auto_backup
 		public static MenuItem gOpenESOSVFolder_MItem;
 		public static RestoreBackupPage gRestoreBackupPage;
 		public static Frame gRestoreBackupFrame;
+		public static Label gMini_Message;
 		#endregion UI
 
 		public MainWindow()
@@ -62,11 +63,13 @@ namespace ESO_SavedVariables_Auto_backup
 			gOpenESOFolder_MItem = OpenESOFolder_MItem;
 			gOpenESOSVFolder_MItem = OpenESOSVFolder_MItem;
 			gRestoreBackupFrame = RestoreBackupFrame;
+			gMini_Message = MiniMessage_Lable;
 			#endregion InitUI
 			gPB1.Visibility = Visibility.Hidden;
 			backup_info_grid.Visibility = Visibility.Hidden;
 			CheckFiles_button.Visibility = Visibility.Hidden;
 			RestoreBackupFrame.Visibility = Visibility.Hidden;
+			MiniMessage_Lable.Visibility = Visibility.Hidden;
 
 			#region tray
 			ni = new System.Windows.Forms.NotifyIcon();
@@ -82,7 +85,7 @@ namespace ESO_SavedVariables_Auto_backup
 			ni.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
 			ni.ContextMenuStrip.Items.Add("Show").Click += (s, e) => { this.Show(); this.WindowState = WindowState.Normal; };
 			ni.ContextMenuStrip.Items.Add("Create Backup").Click += (s, e) => Createback_Button_Click(null,null);
-			ni.ContextMenuStrip.Items.Add("Send Pipup").Click += (s, e) => Sendpopup("Test Message");
+			//ni.ContextMenuStrip.Items.Add("Send Popup").Click += (s, e) => Sendpopup("Test Message");
 			ni.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => Exit_MI_Click(null,null);
 			#endregion tray
 			init();
@@ -92,6 +95,12 @@ namespace ESO_SavedVariables_Auto_backup
 				this.WindowState = WindowState.Minimized;
 			}
 			AutoBackups.init();
+			if (!VersionCheck())
+			{
+				UpdateAvailable updwindow = new UpdateAvailable();
+				updwindow.Topmost = true;
+				updwindow.Show();
+			}
 		}
 		protected override void OnStateChanged(EventArgs e)
 		{
@@ -303,6 +312,33 @@ namespace ESO_SavedVariables_Auto_backup
 		public static void Sendpopup(string Text)
 		{
 			new PopupWindow(Text).Show();
+		}
+
+		private static bool VersionCheck()
+		{
+			try
+			{
+				System.Net.WebClient client = new System.Net.WebClient();
+				string reply = client.DownloadString("https://files.hightgames.ru/versionsstr/ESVAB/version"); //https://hgplay.ru/go.php?a=ESVAB-UpdatePage
+				int serverver = Convert.ToInt32(reply);
+				if (VERSION_CODE < serverver)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			catch
+			{
+				return true;
+			}
+		}
+
+		private void AboutItem_MI_Click(object sender, RoutedEventArgs e)
+		{
+			new Aboutprogram().ShowDialog();
 		}
 	}
 }

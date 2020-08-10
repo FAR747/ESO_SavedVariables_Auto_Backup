@@ -67,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Aboutprogram.xaml.cs">
+      <DependentUpon>Aboutprogram.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AutoBackups.cs" />
     <Compile Include="BackupInfo_list_UC.xaml.cs">
       <DependentUpon>BackupInfo_list_UC.xaml</DependentUpon>
@@ -87,6 +90,13 @@
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="SVProfile.cs" />
+    <Compile Include="UpdateAvailable.xaml.cs">
+      <DependentUpon>UpdateAvailable.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Aboutprogram.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BackupInfo_list_UC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +126,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="StartUpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdateAvailable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

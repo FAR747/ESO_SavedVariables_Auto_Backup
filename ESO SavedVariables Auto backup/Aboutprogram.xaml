@@ -1,0 +1,34 @@
+﻿<Window x:Class="ESO_SavedVariables_Auto_backup.Aboutprogram"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ESO_SavedVariables_Auto_backup"
+        mc:Ignorable="d"
+        Title="ESO SavedVariables Auto Backup - About" Height="287.658" Width="393.135" Background="#FF1F1D1D" ResizeMode="CanMinimize" Icon="esvab_icon.ico" WindowStyle="ToolWindow">
+    <Grid>
+        <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Source="esvab_icon.ico"/>
+        <Label Content="ESO SavedVariables Auto Backup" HorizontalAlignment="Left" Margin="100,10,0,0" VerticalAlignment="Top" Width="277" Foreground="White" FontSize="16"/>
+        <TextBlock HorizontalAlignment="Left" Margin="105,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" Foreground="White">
+            <Run Text="Developed by FAR747"/>
+            <Hyperlink NavigateUri="https://github.com/far747" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(GitHub)</Hyperlink>
+            <Hyperlink NavigateUri="https://twitter.com/FAR747" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(Twitter)</Hyperlink>
+            <Hyperlink NavigateUri="https://www.esoui.com/portal.php?uid=53863" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(ESOUI)</Hyperlink>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="10,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="367" Foreground="White" Height="145">
+            <Run Text="Thanks:" FontSize="16"/>
+            <LineBreak/>
+            <Run Text="RU Steelsword Guild for support!"/>
+            <Hyperlink NavigateUri="https://steelsword.ru" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(Website)</Hyperlink>
+            <Hyperlink NavigateUri="https://vk.com/steelswords" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(VK)</Hyperlink>
+            <LineBreak/>
+            <Run Text="Rickyah for the excellent ini-parser library"/>
+            <Hyperlink NavigateUri="https://github.com/rickyah/ini-parser" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(GitHub)</Hyperlink>
+            <Hyperlink NavigateUri="https://www.nuget.org/packages/ini-parser/" RequestNavigate="Hyperlink_Click" Foreground="Wheat">(NuGet)</Hyperlink>
+            <LineBreak/>
+            <LineBreak/>
+            <Run Text="And to YOU for using the program :)" FontWeight="Light"/>
+        </TextBlock>
+
+    </Grid>
+</Window>
