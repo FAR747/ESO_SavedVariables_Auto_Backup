@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,7 +46,8 @@ namespace ESO_SavedVariables_Auto_backup
 					}
 				}
 				*/
-				MessageBox.Show("ESO SavedVariables Auto Backup is already running!", "Startup error", MessageBoxButton.OK, MessageBoxImage.Error);
+				ShowExistingWindow();
+				//MessageBox.Show("ESO SavedVariables Auto Backup is already running!", "Startup error", MessageBoxButton.OK, MessageBoxImage.Error);
 				System.Windows.Application.Current.Shutdown();
 			}
 		}
@@ -56,6 +58,29 @@ namespace ESO_SavedVariables_Auto_backup
 			bool isNew;
 			InstanceCheckMutex = new Mutex(true, "ESO SavedVariables Auto Backup", out isNew);
 			return isNew;
+		}
+		[DllImport("User32.dll")]
+		private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+		[DllImport("user32.dll")]
+		private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+		private void ShowExistingWindow()
+		{
+			var currentProcess = System.Diagnostics.Process.GetCurrentProcess();
+			var processes = System.Diagnostics.Process.GetProcessesByName(currentProcess.ProcessName);
+			foreach (var process in processes)
+			{
+				// the single-instance already open should have a MainWindowHandle
+				if (process.MainWindowHandle != IntPtr.Zero)
+				{
+					// restores the window in case it was minimized
+					ShowWindow(process.MainWindowHandle, 1);
+
+					// brings the window to the foreground
+					SetForegroundWindow(process.MainWindowHandle);
+					return;
+				}
+			}
 		}
 	}
 }
