@@ -52,7 +52,7 @@ namespace ESO_SavedVariables_Auto_backup
 			MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Hidden));
 			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = true));
 			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.LoadBackups(MainWindow.LoadedProfile.Name)));
-
+			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.Sendpopup("Backup Complete!")));
 		}
 		static void CreateBackup(string name, string path, string outputpath, string profilename)
 		{

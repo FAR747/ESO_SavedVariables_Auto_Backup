@@ -82,9 +82,9 @@ namespace ESO_SavedVariables_Auto_backup
 			ni.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
 			ni.ContextMenuStrip.Items.Add("Show").Click += (s, e) => { this.Show(); this.WindowState = WindowState.Normal; };
 			ni.ContextMenuStrip.Items.Add("Create Backup").Click += (s, e) => Createback_Button_Click(null,null);
+			ni.ContextMenuStrip.Items.Add("Send Pipup").Click += (s, e) => Sendpopup("Test Message");
 			ni.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => Exit_MI_Click(null,null);
 			#endregion tray
-
 			init();
 			if (run_startMinimized)
 			{
@@ -298,6 +298,11 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			ni.Visible = false;
 			ni.Dispose();
+		}
+		
+		public static void Sendpopup(string Text)
+		{
+			new PopupWindow(Text).Show();
 		}
 	}
 }

@@ -29,7 +29,7 @@ namespace ESO_SavedVariables_Auto_backup
 				System.Diagnostics.Debug.WriteLine("ESO Status: " + ESORunned);
 			}
 			TimerCallback tm = new TimerCallback(Timer_tick);
-			timer = new Timer(tm, 0, 0, 5000); //2mins 120000
+			timer = new Timer(tm, 0, 0, 120000); //2mins 120000
 		}
 
 		static void Timer_tick(object obj)
