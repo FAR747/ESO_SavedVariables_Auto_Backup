@@ -91,6 +91,7 @@ namespace ESO_SavedVariables_Auto_backup
 				this.Hide();
 				this.WindowState = WindowState.Minimized;
 			}
+			AutoBackups.init();
 		}
 		protected override void OnStateChanged(EventArgs e)
 		{

@@ -67,6 +67,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutoBackups.cs" />
     <Compile Include="BackupInfo_list_UC.xaml.cs">
       <DependentUpon>BackupInfo_list_UC.xaml</DependentUpon>
     </Compile>
