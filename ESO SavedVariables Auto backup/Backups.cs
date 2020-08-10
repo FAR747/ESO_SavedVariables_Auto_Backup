@@ -35,8 +35,9 @@ namespace ESO_SavedVariables_Auto_backup
 				else
 				{
 					CreateBackup(name, SVpath, backupdir, Profile.Name);
-					MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Hidden));
-					MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = true));
+					//MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Hidden));
+					//MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = true));
+					CreateBackup_complete();
 				}
 			}
 			else

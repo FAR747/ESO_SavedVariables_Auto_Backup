@@ -9,7 +9,7 @@
         Title="ESO SavedVariables Auto backup" Height="450" Width="800" Background="#FF1F1D1D" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Menu HorizontalAlignment="Left" Height="19" VerticalAlignment="Top" Width="794" Background="#FF1F1D1D" Foreground="White">
-            <MenuItem Header="File" Foreground="White">
+            <MenuItem x:Name="Settings_MT" Header="File" Foreground="White" Click="Settings_MT_Click">
                 <MenuItem Header="Settings" Foreground="Black"/>
                 <CheckBox Content="Enable Auto Backup"/>
                 <Separator Foreground="Black"/>

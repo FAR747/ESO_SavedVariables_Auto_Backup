@@ -247,5 +247,10 @@ namespace ESO_SavedVariables_Auto_backup
 			gRestoreBackupFrame.Navigate(gRestoreBackupPage);
 			gRestoreBackupFrame.Visibility = Visibility.Visible;
 		}
+
+		private void Settings_MT_Click(object sender, RoutedEventArgs e)
+		{
+			new SettingsWindow().ShowDialog();
+		}
 	}
 }

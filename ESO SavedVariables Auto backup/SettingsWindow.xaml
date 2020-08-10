@@ -1,0 +1,20 @@
+﻿<Window x:Class="ESO_SavedVariables_Auto_backup.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ESO_SavedVariables_Auto_backup"
+        mc:Ignorable="d"
+        Title="ESVAB Settings" Height="448.834" Width="459.585" Background="#FF1F1D1D" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Button x:Name="SaveBTN" Content="Save" HorizontalAlignment="Left" Margin="365,384,0,0" VerticalAlignment="Top" Width="79" Height="26" Background="#FF333337" Foreground="White" BorderBrush="#FF434346"/>
+        <Button x:Name="ClearBTN" Content="Clear" HorizontalAlignment="Left" Margin="281,384,0,0" VerticalAlignment="Top" Width="79" Height="26" Background="#FF333337" Foreground="White" BorderBrush="#FF434346" Click="ClearBTN_Click"/>
+        <Label Content="Auto Backup Settings:" HorizontalAlignment="Left" Margin="0,73,0,0" VerticalAlignment="Top" Width="454" Foreground="White" FontSize="16"/>
+        <Label x:Name="Label_version" Content="Version" HorizontalAlignment="Left" Width="175" Foreground="White" FontSize="10" VerticalContentAlignment="Bottom" Padding="1,5,5,2" Height="20" VerticalAlignment="Bottom"/>
+        <CheckBox Content="Automatic backup at program start" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
+        <CheckBox Content="Automatic backup when closing ESO" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
+        <Label Content="Program Settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="454" Foreground="White" FontSize="16"/>
+        <CheckBox Content="Run the program at Windows startup" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
+
+    </Grid>
+</Window>
