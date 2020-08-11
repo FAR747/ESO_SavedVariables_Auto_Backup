@@ -1,6 +1,6 @@
 
 
-# ESO SavedVariables Auto Backup [![GitHub license](https://img.shields.io/github/license/FAR747/ESO_SavedVariables_Auto_Backup)](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/blob/master/LICENSE)
+# ESO SavedVariables Auto Backup [![Current Release](https://img.shields.io/github/release/FAR747/ESO_SavedVariables_Auto_Backup.svg)](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/releases) [![GitHub license](https://img.shields.io/github/license/FAR747/ESO_SavedVariables_Auto_Backup)](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/blob/master/LICENSE)
 ### The program for working with backups SavedVariables of The Elder Scrolls Online.
 You can not only create backups manually, but also automatically. For example, when starting a program or exiting the game.
 ESVAB is very simple and does not require a lot of system resources.
