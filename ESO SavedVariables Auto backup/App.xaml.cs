@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -21,6 +22,8 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			base.OnStartup(args);
 			gARGS = args;
+			AppDomain currentDomain = AppDomain.CurrentDomain;
+			currentDomain.UnhandledException += new UnhandledExceptionEventHandler(CrashHandler);
 			//System.Diagnostics.Debug.WriteLine("Process NAME: " + System.Diagnostics.Process.GetCurrentProcess().ProcessName);
 			if (!InstanceCheck())
 			{
@@ -60,6 +63,15 @@ namespace ESO_SavedVariables_Auto_backup
 			bool isNew;
 			InstanceCheckMutex = new Mutex(true, "ESO SavedVariables Auto Backup", out isNew);
 			return isNew;
+		}
+		void CrashHandler(object sender, UnhandledExceptionEventArgs args) //В случае краша
+		{
+			Exception e = (Exception)args.ExceptionObject;
+			Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+			File.WriteAllText(String.Format("./CrashReport_{0}",unixTimestamp), e.Message);
+			File.WriteAllText(String.Format("./CrashTree_{0}", unixTimestamp), e.StackTrace);
+			//Process.Start("CrashReporter.exe");
+
 		}
 		[DllImport("User32.dll")]
 		private static extern bool SetForegroundWindow(IntPtr hWnd);

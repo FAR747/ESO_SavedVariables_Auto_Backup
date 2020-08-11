@@ -34,6 +34,7 @@
         <Grid x:Name="Page_3" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="760">
             <Label Content="Fine! The setup is complete!" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" Foreground="White" Width="760" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36"/>
             <Label Content="Click finish to continue." HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="760" Height="51" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
+            <Label Content="Don't forget to set up automatic backup in File -&gt; Settings :)" HorizontalAlignment="Left" Margin="0,151,0,0" VerticalAlignment="Top" Width="760" Height="51" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14"/>
         </Grid>
 
     </Grid>

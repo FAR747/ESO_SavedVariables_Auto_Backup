@@ -90,6 +90,10 @@ namespace ESO_SavedVariables_Auto_backup
 		}
 		public static List<string> getfilesinbackup(string path)
 		{
+			if (File.Exists("./getpaths"))
+			{
+				File.WriteAllText("./Last_Arhive_getfiles_path", path);
+			}
 			List<string> files = new List<string>();
 			if (File.Exists(path))
 			{
