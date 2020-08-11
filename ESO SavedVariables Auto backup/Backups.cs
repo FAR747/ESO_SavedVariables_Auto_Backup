@@ -24,6 +24,7 @@ namespace ESO_SavedVariables_Auto_backup
 			{
 				MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Visible));
 				MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = false));
+				MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gRestore_button.IsEnabled = false));
 				if (usetack)
 				{
 					Task t = Task.Run(() => CreateBackup(name, SVpath, backupdir, Profile.Name));
@@ -52,6 +53,7 @@ namespace ESO_SavedVariables_Auto_backup
 			MainWindow.gPB1.Dispatcher.BeginInvoke((Action)(() => MainWindow.gPB1.Visibility = System.Windows.Visibility.Hidden));
 			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gCreateback_Button.IsEnabled = true));
 			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.LoadBackups(MainWindow.LoadedProfile.Name)));
+			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.gRestore_button.IsEnabled = true));
 			MainWindow.gCreateback_Button.Dispatcher.BeginInvoke((Action)(() => MainWindow.Sendpopup("Backup Complete!")));
 		}
 		static void CreateBackup(string name, string path, string outputpath, string profilename)

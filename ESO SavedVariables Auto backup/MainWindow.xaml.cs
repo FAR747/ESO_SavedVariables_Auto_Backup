@@ -47,6 +47,7 @@ namespace ESO_SavedVariables_Auto_backup
 		public static RestoreBackupPage gRestoreBackupPage;
 		public static Frame gRestoreBackupFrame;
 		public static Label gMini_Message;
+		public static Button gRestore_button;
 		#endregion UI
 
 		public MainWindow()
@@ -64,6 +65,7 @@ namespace ESO_SavedVariables_Auto_backup
 			gOpenESOSVFolder_MItem = OpenESOSVFolder_MItem;
 			gRestoreBackupFrame = RestoreBackupFrame;
 			gMini_Message = MiniMessage_Lable;
+			gRestore_button = RestoreBackupBTN;
 			#endregion InitUI
 			gPB1.Visibility = Visibility.Hidden;
 			backup_info_grid.Visibility = Visibility.Hidden;

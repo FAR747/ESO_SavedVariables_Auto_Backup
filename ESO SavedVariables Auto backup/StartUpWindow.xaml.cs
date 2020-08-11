@@ -32,6 +32,7 @@ namespace ESO_SavedVariables_Auto_backup
 			Page_1.Visibility = Visibility.Hidden;
 			Page_2.Visibility = Visibility.Hidden;
 			Page_3.Visibility = Visibility.Hidden;
+			OpefDirectoryDialog_BS.Visibility = Visibility.Hidden;
 		}
 
 		private void Next_Button_Click(object sender, RoutedEventArgs e)
@@ -206,10 +207,11 @@ namespace ESO_SavedVariables_Auto_backup
 				string mydocyments = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				BackupDir = ESODir + "\\" + SettingsVars.DefFolderName;
 				DirectoryBS_TB.Text = BackupDir;
+				OpefDirectoryDialog_BS.Visibility = Visibility.Hidden;
 			}
 			else
 			{
-
+				OpefDirectoryDialog_BS.Visibility = Visibility.Visible;
 			}
 		}
 	}

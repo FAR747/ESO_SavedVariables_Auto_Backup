@@ -22,7 +22,7 @@
             <TreeView x:Name="ESOSVTree" HorizontalAlignment="Left" Height="208" Margin="0,172,0,0" VerticalAlignment="Top" Width="314" Foreground="White" Background="#FF333337" BorderBrush="#FF333337"/>
             <Label x:Name="TreeStatusLabel" Content="Below are the SavedVariables folders found" HorizontalAlignment="Left" Margin="0,146,0,0" VerticalAlignment="Top" Width="314" Foreground="White"/>
         </Grid>
-        <Grid x:Name="Page_2" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="760" d:IsHidden="True">
+        <Grid x:Name="Page_2" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="760">
             <Label Content="Good. Now let's configure the backup storage location" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Width="760" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
             <RadioButton x:Name="BS_RB_ESOFolder" Content="ESO Folder" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" Foreground="White" GroupName="BS_RB" IsChecked="True" Checked="BS_RB_Checked"/>
             <RadioButton x:Name="BS_RB_Custom" Content="Custom" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Foreground="White" GroupName="BS_RB" Checked="BS_RB_Checked"/>
@@ -31,7 +31,7 @@
             <Label Content="And choose which profiles to add" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Width="760" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" Margin="0,178,0,0"/>
             <ListBox x:Name="addprofiles_LV" HorizontalAlignment="Left" Height="100" Margin="264,209,0,0" VerticalAlignment="Top" Width="236" Background="#FF333337" BorderBrush="#FF333337" Foreground="White"/>
         </Grid>
-        <Grid x:Name="Page_3" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="760">
+        <Grid x:Name="Page_3" HorizontalAlignment="Left" Height="380" VerticalAlignment="Top" Width="760" d:IsHidden="True">
             <Label Content="Fine! The setup is complete!" HorizontalAlignment="Left" Margin="0,42,0,0" VerticalAlignment="Top" Foreground="White" Width="760" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="36"/>
             <Label Content="Click finish to continue." HorizontalAlignment="Left" Margin="0,100,0,0" VerticalAlignment="Top" Width="760" Height="51" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22"/>
             <Label Content="Don't forget to set up automatic backup in File -&gt; Settings :)" HorizontalAlignment="Left" Margin="0,151,0,0" VerticalAlignment="Top" Width="760" Height="51" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14"/>
