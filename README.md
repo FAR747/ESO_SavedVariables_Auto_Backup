@@ -1,4 +1,5 @@
 
+
 # ESO SavedVariables Auto Backup [![GitHub license](https://img.shields.io/github/license/FAR747/ESO_SavedVariables_Auto_Backup)](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/blob/master/LICENSE)
 ### The program for working with backups SavedVariables of The Elder Scrolls Online.
 You can not only create backups manually, but also automatically. For example, when starting a program or exiting the game.
@@ -11,7 +12,7 @@ ESVAB is very simple and does not require a lot of system resources.
 
 #### How to install:
 
- 1. Download the archive from the Releases and unpack it to a convenient place. (I highly **recommend** just putting it in the folder `/Documents /Elder Scrolls Online/`)
+ 1. Download the archive from the [Releases](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/releases) and unpack it to a convenient place. (I highly **recommend** just putting it in the folder `/Documents /Elder Scrolls Online/`)
  2. Run `ESO SavedVariables Auto backup.exe`
  3. In the window that opens, *click next*
  4. Select the Elder Scrolls Online directory in the Documents directory. The program itself should find this directory and show the ESO folders *(live, pts and etc.)* *Click Next*
@@ -20,7 +21,7 @@ Below, select the ESO folders from which the settings will be backed up. (By def
 6. All setup is complete. Now *click Finish*
 
 #### How to update the program:
-Download the archive from the Releases and unpack it to where you installed the program. (If you received a notification about a new version and clicked on the "Open the update page" button, the required folder will open automatically.)
+Download the archive from the [Releases](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/releases) and unpack it to where you installed the program. (If you received a notification about a new version and clicked on the "Open the update page" button, the required folder will open automatically.)
 
 #### How to set up automatic backup:
 
