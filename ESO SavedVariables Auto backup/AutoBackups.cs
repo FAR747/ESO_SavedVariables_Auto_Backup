@@ -23,30 +23,29 @@ namespace ESO_SavedVariables_Auto_backup
 					Backups.Create(SVP, name, true);
 				}
 			}
-			if (SettingsVars.autobackup_exitESO)
-			{
-				ESORunned = CheckESO();
-				System.Diagnostics.Debug.WriteLine("ESO Status: " + ESORunned);
-			}
+			ESORunned = CheckESO();
+			System.Diagnostics.Debug.WriteLine("ESO Status: " + ESORunned);
 			TimerCallback tm = new TimerCallback(Timer_tick);
 			timer = new Timer(tm, 0, 0, 10000); //2mins 120000
 		}
 
 		static void Timer_tick(object obj)
 		{
-			if (SettingsVars.autobackup_exitESO)
-			{
+			
 				bool currentESORunned = CheckESO();
 				if (ESORunned && !currentESORunned)
 				{
 					ESORunned = currentESORunned;
 					System.Diagnostics.Debug.WriteLine("ESO Status: " + "EXIT");
-					Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-					string name = String.Format("AutoBackup_{0}", unixTimestamp);
-					//Backups.Create(MainWindow.LoadedProfile, name, true);
-					foreach (SVProfile SVP in SettingsVars.Profiles)
+					if (SettingsVars.autobackup_exitESO)
 					{
-						Backups.Create(SVP, name, true);
+						Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+						string name = String.Format("AutoBackup_{0}", unixTimestamp);
+						//Backups.Create(MainWindow.LoadedProfile, name, true);
+						foreach (SVProfile SVP in SettingsVars.Profiles)
+						{
+							Backups.Create(SVP, name, true);
+						}
 					}
 				}
 				else if (currentESORunned && !ESORunned)
@@ -54,7 +53,6 @@ namespace ESO_SavedVariables_Auto_backup
 					ESORunned = currentESORunned;
 					System.Diagnostics.Debug.WriteLine("ESO Status: " + "START");
 				}
-			}
 		}
 		static bool CheckESO()
 		{
