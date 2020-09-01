@@ -25,7 +25,7 @@ namespace ESO_SavedVariables_Auto_backup
 	public partial class MainWindow : Window
 	{
 		public static int VERSION_CODE = 1;
-		public static string VERSION_NAME = "1.0";
+		public static string VERSION_NAME = "1.1 Unstable";
 
 		public FileIniDataParser gIniParser = new FileIniDataParser();
 		public static SVProfile LoadedProfile;
@@ -87,7 +87,7 @@ namespace ESO_SavedVariables_Auto_backup
 			ni.ContextMenuStrip = new System.Windows.Forms.ContextMenuStrip();
 			ni.ContextMenuStrip.Items.Add("Show").Click += (s, e) => { this.Show(); this.WindowState = WindowState.Normal; };
 			ni.ContextMenuStrip.Items.Add("Create Backup").Click += (s, e) => Createback_Button_Click(null,null);
-			ni.ContextMenuStrip.Items.Add("Send Popup").Click += (s, e) => Sendpopup("Test Message");
+			//ni.ContextMenuStrip.Items.Add("Send Popup").Click += (s, e) => Sendpopup("Test Message");
 			ni.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => Exit_MI_Click(null,null);
 			#endregion tray
 			init();
