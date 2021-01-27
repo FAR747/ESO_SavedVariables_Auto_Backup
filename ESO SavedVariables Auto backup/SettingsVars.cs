@@ -123,6 +123,7 @@ namespace ESO_SavedVariables_Auto_backup
 					SVP.Name = Config["config"]["Name"];
 					SVP.Path = Config["config"]["Path"];
 					Profiles.Add(SVP);
+					AutoBackups.checkoldbackups(SVP); //CHECK OLD BACKUPS
 				}
 			}
 		}

@@ -61,7 +61,7 @@ namespace ESO_SavedVariables_Auto_backup
 			string fullpath = String.Format("{0}/{1}.ESVAB.zip",outputpath,name);
 			string fullpathmanifest = String.Format("{0}/{1}.ESVAB.backup", outputpath, name);
 			ZipFile.CreateFromDirectory(path, fullpath);
-			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+			Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			FileIniDataParser parser = new FileIniDataParser();
 			IniData manifest = new IniData();
 			manifest.Sections.AddSection("config");
@@ -113,9 +113,5 @@ namespace ESO_SavedVariables_Auto_backup
 
 		}
 
-		public static void checkoldbackups(SVProfile Profile)
-		{
-
-		}
 	}
 }

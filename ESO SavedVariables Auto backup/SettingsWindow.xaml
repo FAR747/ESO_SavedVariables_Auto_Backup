@@ -15,7 +15,15 @@
         <CheckBox x:Name="autobackup_exitESO_CB" Content="Automatic backup when closing ESO" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
         <Label Content="Program Settings:" HorizontalAlignment="Left" VerticalAlignment="Top" Width="454" Foreground="White" FontSize="16"/>
         <CheckBox x:Name="startupWindows_CB" Content="Run the program at Windows startup" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="434" Foreground="White"/>
-        <CheckBox x:Name="autodeletebackups_CB" Content="Remove old backups automatically" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="434" Foreground="White" ToolTip="Automatically deletes backups older than the number of days specified below when the program starts"/>
+        <CheckBox x:Name="autodeletebackups_CB" Content="Remove old backups automatically" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="434" Foreground="White">
+            <CheckBox.ToolTip>
+                <TextBlock>
+                    Automatically deletes backups older than the number of days specified below when the program starts.
+                    <LineBreak/>
+                    May slightly increase the program launch time.
+                </TextBlock>   
+            </CheckBox.ToolTip>
+        </CheckBox>
         <TextBox x:Name="maxdaybackup_TB" HorizontalAlignment="Left" Height="23" Margin="170,71,0,0" TextWrapping="Wrap" Text="30" VerticalAlignment="Top" Width="18" FontSize="10" MaxLength="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PreviewTextInput="maxdaybackup_TB_PreviewTextInput"/>
         <Label Content="Automatically delete backups older" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top" Foreground="White" Padding="0" FontSize="10" Height="14"/>
         <Label Content="days" HorizontalAlignment="Left" Margin="193,76,0,0" VerticalAlignment="Top" Foreground="White" Padding="0" FontSize="10" Height="14"/>

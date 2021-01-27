@@ -237,7 +237,7 @@ namespace ESO_SavedVariables_Auto_backup
 
 		private void Createback_Button_Click(object sender, RoutedEventArgs e)
 		{
-			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+			Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			string name = String.Format("Backup_{0}", unixTimestamp);
 			Backups.Create(LoadedProfile, name, true);
 		}
