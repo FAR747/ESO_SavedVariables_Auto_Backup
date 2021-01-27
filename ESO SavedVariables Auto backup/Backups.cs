@@ -112,5 +112,10 @@ namespace ESO_SavedVariables_Auto_backup
 			return files;
 
 		}
+
+		public static void checkoldbackups(SVProfile Profile)
+		{
+
+		}
 	}
 }

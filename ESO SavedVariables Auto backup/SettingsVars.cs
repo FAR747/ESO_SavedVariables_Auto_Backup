@@ -20,6 +20,9 @@ namespace ESO_SavedVariables_Auto_backup
 		static int Sav_Version = -1;
 
 		#region settings
+		public static bool autodeletebackups = false;
+		public static int maxdaybackup = 30;
+
 		public static bool autobackup_startup = false;
 		public static bool autobackup_exitESO = false;
 		#endregion settings
@@ -68,6 +71,22 @@ namespace ESO_SavedVariables_Auto_backup
 				{
 					savecfg = true;
 				}
+				if (gConfig["config"]["autodeletebackups"] != null)
+				{
+					autodeletebackups = bool.Parse(gConfig["config"]["autodeletebackups"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
+				if (gConfig["config"]["autodeletebackups"] != null)
+				{
+					maxdaybackup = Convert.ToInt32(gConfig["config"]["maxdaybackup"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
 				if (savecfg)
 				{
 					SaveConfig();
@@ -84,6 +103,8 @@ namespace ESO_SavedVariables_Auto_backup
 
 			gConfig["config"].AddKey("autobackup_startup", autobackup_startup.ToString());
 			gConfig["config"].AddKey("autobackup_exitESO", autobackup_exitESO.ToString());
+			gConfig["config"].AddKey("autodeletebackups", autodeletebackups.ToString());
+			gConfig["config"].AddKey("maxdaybackup", maxdaybackup.ToString());
 			FileIniDataParser parser = new FileIniDataParser();
 			parser.WriteFile(appdata + "/ESVAB.cfg", gConfig);
 		}

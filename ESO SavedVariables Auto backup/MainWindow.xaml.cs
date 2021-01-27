@@ -224,6 +224,12 @@ namespace ESO_SavedVariables_Auto_backup
 					long size = file.Length;
 					size = size / 1024;
 					BackupInfo_list_UC BILUC = new BackupInfo_list_UC(bname, String.Format("{0}kb",size), bpath,bDateTime);
+					/*
+					ContextMenu cmenu = new ContextMenu();
+					MenuItem mitem = new MenuItem();
+					mitem.Header = "Delete Backup";
+					cmenu.Items.Add(mitem);
+					BILUC.ContextMenu = cmenu;*/
 					gBackuplist.Items.Add(BILUC);
 				}
 			}
