@@ -2,7 +2,7 @@
 
 # ESO SavedVariables Auto Backup [![Current Release](https://img.shields.io/github/release/FAR747/ESO_SavedVariables_Auto_Backup.svg)](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/releases) [![GitHub license](https://img.shields.io/github/license/FAR747/ESO_SavedVariables_Auto_Backup)](https://github.com/FAR747/ESO_SavedVariables_Auto_Backup/blob/master/LICENSE)
 ### The program for working with backups SavedVariables of The Elder Scrolls Online.
-You can not only create backups manually, but also automatically. For example, when starting a program or exiting the game.
+You can not only create backups manually, but also automatically. For example, when starting a program or exiting the game.<br>
 ESVAB is very simple and does not require a lot of system resources.
 
 ### System requirements:
@@ -16,7 +16,7 @@ ESVAB is very simple and does not require a lot of system resources.
  2. Run `ESO SavedVariables Auto backup.exe`
  3. In the window that opens, *click next*
  4. Select the Elder Scrolls Online directory in the Documents directory. The program itself should find this directory and show the ESO folders *(live, pts and etc.)* *Click Next*
- 5. Here you need to select the location where the backups will be saved. I advise you to leave it as it is.
+ 5. Here you need to select the location where the backups will be saved. I advise you to leave it as it is. <br>
 Below, select the ESO folders from which the settings will be backed up. (By default, all folders are selected, but note that you cannot uncheck the `live` folder) *Click Next*
 6. All setup is complete. Now *click Finish*
 
@@ -25,19 +25,21 @@ Download the archive from the [Releases](https://github.com/FAR747/ESO_SavedVari
 
 #### How to set up automatic backup:
 
- 1. Click on `File` at the top and select` Settings`
- 2. In the window that opens, you will find the automatic backup settings:
-  `Automatic backup at program start` - If enabled, the program will create backups each time it starts. Works well with the parameter `Run the program at Windows startup`.
-  `Automatic backup when closing ESO` - If enabled, the program will create backups some time after the game is closed.
+ 1. Click on `File` at the top and select `Settings`
+ 2. In the window that opens, you will find the automatic backup settings:<br>
+  `Automatic backup at program start` - If enabled, the program will create backups each time it starts. Works well with the parameter `Run the program at Windows startup`.<br>
+  `Automatic backup when closing ESO` - If enabled, the program will create backups some time after the game is closed.<br>
+ 3. You can also configure automatic deletion of old backups by enabling the `Remove old backups automatically` parameter and specifying the number of days below for keeping the backup.<br>
+  *Backups will be automatically deleted when the program starts.*
 
 #### How to restore a backup:
 
  1. Select the desired profile by clicking on `Profiles`
  2. Select the required backup from the list
  3. Click on the `Restore` button
- 4. In the window that opens, you can select 2 options for recovery:
- `Backup current SavedVariables` - Creates a backup of the current addon settings. **(Recommended)**.
- `Clear SavedVariables folder` - Clears the SavedVariables folder before unpacking the backup. If disabled, existing files will simply be replaced.
+ 4. In the window that opens, you can select 2 options for recovery:<br>
+ `Backup current SavedVariables` - Creates a backup of the current addon settings. **(Recommended)**.<br>
+ `Clear SavedVariables folder` - Clears the SavedVariables folder before unpacking the backup. If disabled, existing files will simply be replaced.<br>
  5. **(If the game is running)** You need to go to the main menu of the game so that unpacking the backup makes sense. Otherwise, the game will overwrite SavedVariables with the current data.
  6. Click on the Restore button and confirm your intentions.
  7. Wait until the program unpacks the backup. **DO NOT close** the program during this process!
