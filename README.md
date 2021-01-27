@@ -30,7 +30,8 @@ Download the archive from the [Releases](https://github.com/FAR747/ESO_SavedVari
   `Automatic backup at program start` - If enabled, the program will create backups each time it starts. Works well with the parameter `Run the program at Windows startup`.<br>
   `Automatic backup when closing ESO` - If enabled, the program will create backups some time after the game is closed.<br>
  3. You can also configure automatic deletion of old backups by enabling the `Remove old backups automatically` parameter and specifying the number of days below for keeping the backup.<br>
-  *Backups will be automatically deleted when the program starts.*
+  *Backups will be automatically deleted when the program starts.*<br>
+  *You can also manually delete backups by right-clicking on desired backup -> delete*
 
 #### How to restore a backup:
 
