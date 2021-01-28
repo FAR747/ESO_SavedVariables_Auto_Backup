@@ -106,10 +106,17 @@ namespace ESO_SavedVariables_Auto_backup
 			gConfig["config"].AddKey("autodeletebackups", autodeletebackups.ToString());
 			gConfig["config"].AddKey("maxdaybackup", maxdaybackup.ToString());
 			FileIniDataParser parser = new FileIniDataParser();
-			parser.WriteFile(appdata + "/ESVAB.cfg", gConfig);
+			parser.WriteFile(configpath, gConfig);
 		}
 		public static void LoadProfiles()
 		{
+			if (!Directory.Exists(Backupdir))
+			{
+				System.Windows.MessageBox.Show(String.Format("A fatal error has occurred. Backup directory ({0}) not found!\n\nThe program settings will be reset. You will need to re-configure the program.", Backupdir), "Critical Error",System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+				File.Delete(configpath);
+				MainWindow.closeprogramm();
+				return;
+			}
 			string[] dirs = Directory.GetDirectories(Backupdir);
 			Profiles.Clear();
 			foreach (string dir in dirs)

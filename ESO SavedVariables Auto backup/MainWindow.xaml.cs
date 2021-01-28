@@ -205,6 +205,13 @@ namespace ESO_SavedVariables_Auto_backup
 			string manifest = path + "\\backupdirectory.cfg";
 			FileIniDataParser parser = new FileIniDataParser();
 			DirectoryInfo files = new DirectoryInfo(path);
+			if (!Directory.Exists(path))
+			{
+				System.Windows.MessageBox.Show(String.Format("A fatal error has occurred. Profile backup directory {0} ({1}) not found!\n\nThe program settings will be reset. You will need to re-configure the program.", name, path), "Critical Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+				File.Delete(SettingsVars.configpath);
+				MainWindow.closeprogramm();
+				return;
+			}
 			FileInfo[] dFiles = files.GetFiles("*.ESVAB.zip").OrderByDescending(p => p.CreationTime).ToArray();
 			foreach (FileInfo file in dFiles)
 			{
@@ -347,6 +354,12 @@ namespace ESO_SavedVariables_Auto_backup
 		private void AboutItem_MI_Click(object sender, RoutedEventArgs e)
 		{
 			new Aboutprogram().ShowDialog();
+		}
+
+		public static void closeprogramm()
+		{
+			System.Diagnostics.Trace.WriteLine("App close void");
+			System.Windows.Application.Current.Shutdown();
 		}
 	}
 }
