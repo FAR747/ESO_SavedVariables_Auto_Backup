@@ -41,7 +41,7 @@ Download the archive from the [Releases](https://github.com/FAR747/ESO_SavedVari
  4. In the window that opens, you can select 2 options for recovery:<br>
  `Backup current SavedVariables` - Creates a backup of the current addon settings. **(Recommended)**.<br>
  `Clear SavedVariables folder` - Clears the SavedVariables folder before unpacking the backup. If disabled, existing files will simply be replaced.<br>
- 5. **(If the game is running)** You need to go to the main menu of the game so that unpacking the backup makes sense. Otherwise, the game will overwrite SavedVariables with the current data.
+ 5. **(If the game is running)** You need to go to the main menu *(go to the character selection menu)* of the game so that unpacking the backup makes sense. Otherwise, the game will overwrite SavedVariables with the current data.
  6. Click on the Restore button and confirm your intentions.
  7. Wait until the program unpacks the backup. **DO NOT close** the program during this process!
  
