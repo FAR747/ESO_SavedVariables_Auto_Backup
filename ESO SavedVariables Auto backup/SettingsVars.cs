@@ -20,6 +20,9 @@ namespace ESO_SavedVariables_Auto_backup
 		static int Sav_Version = -1;
 
 		#region settings
+		public static bool autodeletebackups = false;
+		public static int maxdaybackup = 30;
+
 		public static bool autobackup_startup = false;
 		public static bool autobackup_exitESO = false;
 		#endregion settings
@@ -68,6 +71,22 @@ namespace ESO_SavedVariables_Auto_backup
 				{
 					savecfg = true;
 				}
+				if (gConfig["config"]["autodeletebackups"] != null)
+				{
+					autodeletebackups = bool.Parse(gConfig["config"]["autodeletebackups"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
+				if (gConfig["config"]["autodeletebackups"] != null)
+				{
+					maxdaybackup = Convert.ToInt32(gConfig["config"]["maxdaybackup"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
 				if (savecfg)
 				{
 					SaveConfig();
@@ -84,11 +103,20 @@ namespace ESO_SavedVariables_Auto_backup
 
 			gConfig["config"].AddKey("autobackup_startup", autobackup_startup.ToString());
 			gConfig["config"].AddKey("autobackup_exitESO", autobackup_exitESO.ToString());
+			gConfig["config"].AddKey("autodeletebackups", autodeletebackups.ToString());
+			gConfig["config"].AddKey("maxdaybackup", maxdaybackup.ToString());
 			FileIniDataParser parser = new FileIniDataParser();
-			parser.WriteFile(appdata + "/ESVAB.cfg", gConfig);
+			parser.WriteFile(configpath, gConfig);
 		}
 		public static void LoadProfiles()
 		{
+			if (!Directory.Exists(Backupdir))
+			{
+				System.Windows.MessageBox.Show(String.Format("A fatal error has occurred. Backup directory ({0}) not found!\n\nThe program settings will be reset. You will need to re-configure the program.", Backupdir), "Critical Error",System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+				File.Delete(configpath);
+				MainWindow.closeprogramm();
+				return;
+			}
 			string[] dirs = Directory.GetDirectories(Backupdir);
 			Profiles.Clear();
 			foreach (string dir in dirs)
@@ -102,6 +130,7 @@ namespace ESO_SavedVariables_Auto_backup
 					SVP.Name = Config["config"]["Name"];
 					SVP.Path = Config["config"]["Path"];
 					Profiles.Add(SVP);
+					AutoBackups.checkoldbackups(SVP); //CHECK OLD BACKUPS
 				}
 			}
 		}

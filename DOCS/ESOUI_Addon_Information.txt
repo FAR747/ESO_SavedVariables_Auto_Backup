@@ -31,6 +31,9 @@ How to set up automatic backup:[/SIZE]
 [*]In the window that opens, you will find the automatic backup settings:
 [B]Automatic backup at program start [/B]- If enabled, the program will create backups each time it starts. Works well with the parameter [B]Run the program at Windows startup[/B]. 
 [B]Automatic backup when closing ESO[/B] - If enabled, the program will create backups some time after the game is closed.
+[*]You can also configure automatic deletion of old backups by enabling the [B]Remove old backups automatically[/B] parameter and specifying the number of days below for keeping the backup.
+ [I]Backups will be automatically deleted when the program starts.[/I]
+ [I]You can also manually delete backups by right-clicking on desired backup -> delete[/I]
 [/LIST]
 
 [SIZE="4"]How to restore a backup:[/SIZE]

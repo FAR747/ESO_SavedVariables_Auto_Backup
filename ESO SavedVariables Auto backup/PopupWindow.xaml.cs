@@ -36,6 +36,10 @@ namespace ESO_SavedVariables_Auto_backup
 			this.Left = desktopWorkingArea.Right - this.Width - -30;
 			this.Top = desktopWorkingArea.Bottom - this.Height - 15;
 			TimerCallback tm = new TimerCallback((object obj) => TimerTick_IN(obj, this));
+			if (timer != null)
+			{
+				timer.Dispose();
+			}
 			timer = new Timer(tm, 0, 0, 1);
 		}
 		static void TimerTick_IN(object obj, PopupWindow window)

@@ -1,5 +1,8 @@
-﻿using System;
+﻿using IniParser;
+using IniParser.Model;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,7 +18,7 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			if (SettingsVars.autobackup_startup)
 			{
-				Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+				Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 				string name = String.Format("AutoBackup_{0}", unixTimestamp);
 				//Backups.Create(MainWindow.LoadedProfile, name, true);
 				foreach (SVProfile SVP in SettingsVars.Profiles)
@@ -23,30 +26,29 @@ namespace ESO_SavedVariables_Auto_backup
 					Backups.Create(SVP, name, true);
 				}
 			}
-			if (SettingsVars.autobackup_exitESO)
-			{
-				ESORunned = CheckESO();
-				System.Diagnostics.Debug.WriteLine("ESO Status: " + ESORunned);
-			}
+			ESORunned = CheckESO();
+			System.Diagnostics.Debug.WriteLine("ESO Status: " + ESORunned);
 			TimerCallback tm = new TimerCallback(Timer_tick);
 			timer = new Timer(tm, 0, 0, 10000); //2mins 120000
 		}
 
 		static void Timer_tick(object obj)
 		{
-			if (SettingsVars.autobackup_exitESO)
-			{
+			
 				bool currentESORunned = CheckESO();
 				if (ESORunned && !currentESORunned)
 				{
 					ESORunned = currentESORunned;
 					System.Diagnostics.Debug.WriteLine("ESO Status: " + "EXIT");
-					Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-					string name = String.Format("AutoBackup_{0}", unixTimestamp);
-					//Backups.Create(MainWindow.LoadedProfile, name, true);
-					foreach (SVProfile SVP in SettingsVars.Profiles)
+					if (SettingsVars.autobackup_exitESO)
 					{
-						Backups.Create(SVP, name, true);
+						Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+						string name = String.Format("AutoBackup_{0}", unixTimestamp);
+						//Backups.Create(MainWindow.LoadedProfile, name, true);
+						foreach (SVProfile SVP in SettingsVars.Profiles)
+						{
+							Backups.Create(SVP, name, true);
+						}
 					}
 				}
 				else if (currentESORunned && !ESORunned)
@@ -54,7 +56,6 @@ namespace ESO_SavedVariables_Auto_backup
 					ESORunned = currentESORunned;
 					System.Diagnostics.Debug.WriteLine("ESO Status: " + "START");
 				}
-			}
 		}
 		static bool CheckESO()
 		{
@@ -71,6 +72,31 @@ namespace ESO_SavedVariables_Auto_backup
 			}
 
 			return check;
+		}
+
+		public static void checkoldbackups(SVProfile Profile)
+		{
+			if (SettingsVars.autodeletebackups)
+			{
+				string path = SettingsVars.Backupdir + "\\" + Profile.Name;
+				int maxdays = SettingsVars.maxdaybackup * 86400; // 86400 - 1 day
+				FileIniDataParser parser = new FileIniDataParser();
+				DirectoryInfo files = new DirectoryInfo(path);
+				FileInfo[] dFiles = files.GetFiles("*.ESVAB.backup").OrderByDescending(p => p.CreationTime).ToArray();
+				foreach (FileInfo file in dFiles)
+				{
+					string zipname = file.FullName.Replace(".backup", ".zip");
+					IniData config = parser.ReadFile(file.FullName);
+					Int64 creationdate = Convert.ToInt64(config["config"]["date"]);
+					Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+					Int64 filelivetime = unixTimestamp - creationdate;
+					if (filelivetime > maxdays)
+					{
+						File.Delete(file.FullName);
+						File.Delete(zipname);
+					}
+				}
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace ESO_SavedVariables_Auto_backup
 {
@@ -21,6 +22,23 @@ namespace ESO_SavedVariables_Auto_backup
 	public partial class BackupInfo_list_UC : UserControl
 	{
 		public string gname, gsize, gpath, gdate;
+
+		private void Delete_MI_Click(object sender, RoutedEventArgs e)
+		{
+			MessageBoxResult result = MessageBox.Show(String.Format("Are you sure you want to delete backup {0}?\n\nThis action cannot be undone!", gname), "Delete Backup", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+			switch (result)
+			{
+				case MessageBoxResult.Yes:
+					File.Delete(gpath.Replace(".zip", ".backup"));
+					File.Delete(gpath);
+					MainWindow.LoadBackups(MainWindow.LoadedProfile.Name);
+					break;
+				case MessageBoxResult.No:
+					
+					break;
+			}
+		}
+
 		public BackupInfo_list_UC(string name, string size, string path, string date)
 		{
 			InitializeComponent();

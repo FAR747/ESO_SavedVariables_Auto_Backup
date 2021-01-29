@@ -24,8 +24,8 @@ namespace ESO_SavedVariables_Auto_backup
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public static int VERSION_CODE = 1;
-		public static string VERSION_NAME = "1.0";
+		public static int VERSION_CODE = 2;
+		public static string VERSION_NAME = "1.1";
 
 		public FileIniDataParser gIniParser = new FileIniDataParser();
 		public static SVProfile LoadedProfile;
@@ -205,6 +205,13 @@ namespace ESO_SavedVariables_Auto_backup
 			string manifest = path + "\\backupdirectory.cfg";
 			FileIniDataParser parser = new FileIniDataParser();
 			DirectoryInfo files = new DirectoryInfo(path);
+			if (!Directory.Exists(path))
+			{
+				System.Windows.MessageBox.Show(String.Format("A fatal error has occurred. Profile backup directory {0} ({1}) not found!\n\nThe program settings will be reset. You will need to re-configure the program.", name, path), "Critical Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+				File.Delete(SettingsVars.configpath);
+				MainWindow.closeprogramm();
+				return;
+			}
 			FileInfo[] dFiles = files.GetFiles("*.ESVAB.zip").OrderByDescending(p => p.CreationTime).ToArray();
 			foreach (FileInfo file in dFiles)
 			{
@@ -224,6 +231,12 @@ namespace ESO_SavedVariables_Auto_backup
 					long size = file.Length;
 					size = size / 1024;
 					BackupInfo_list_UC BILUC = new BackupInfo_list_UC(bname, String.Format("{0}kb",size), bpath,bDateTime);
+					/*
+					ContextMenu cmenu = new ContextMenu();
+					MenuItem mitem = new MenuItem();
+					mitem.Header = "Delete Backup";
+					cmenu.Items.Add(mitem);
+					BILUC.ContextMenu = cmenu;*/
 					gBackuplist.Items.Add(BILUC);
 				}
 			}
@@ -231,7 +244,7 @@ namespace ESO_SavedVariables_Auto_backup
 
 		private void Createback_Button_Click(object sender, RoutedEventArgs e)
 		{
-			Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+			Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			string name = String.Format("Backup_{0}", unixTimestamp);
 			Backups.Create(LoadedProfile, name, true);
 		}
@@ -341,6 +354,12 @@ namespace ESO_SavedVariables_Auto_backup
 		private void AboutItem_MI_Click(object sender, RoutedEventArgs e)
 		{
 			new Aboutprogram().ShowDialog();
+		}
+
+		public static void closeprogramm()
+		{
+			System.Diagnostics.Trace.WriteLine("App close void");
+			System.Windows.Application.Current.Shutdown();
 		}
 	}
 }

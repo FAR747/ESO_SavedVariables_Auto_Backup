@@ -26,6 +26,9 @@ namespace ESO_SavedVariables_Auto_backup
 			startupWindows_CB.IsChecked = SettingsFuncs.getstartupwindows();
 			autobackup_startup_CB.IsChecked = SettingsVars.autobackup_startup;
 			autobackup_exitESO_CB.IsChecked = SettingsVars.autobackup_exitESO;
+			autodeletebackups_CB.IsChecked = SettingsVars.autodeletebackups;
+			maxdaybackup_TB.Text = SettingsVars.maxdaybackup.ToString();
+
 		}
 
 		private void ClearBTN_Click(object sender, RoutedEventArgs e)
@@ -36,10 +39,31 @@ namespace ESO_SavedVariables_Auto_backup
 		private void SaveBTN_Click(object sender, RoutedEventArgs e)
 		{
 			SettingsFuncs.setstartupwindows(startupWindows_CB.IsChecked.Value);
+			SettingsVars.autodeletebackups = autodeletebackups_CB.IsChecked.Value;
+			string maxdaysstr = maxdaybackup_TB.Text.Replace(" ", "");
+			if (maxdaysstr == "")
+			{
+				maxdaysstr = "30";
+			}
+			int maxdaysback = Convert.ToInt32(maxdaysstr);
+			if (maxdaysback <= 0)
+			{
+				maxdaysback = 30;
+			}
+			SettingsVars.maxdaybackup = maxdaysback;
+
 			SettingsVars.autobackup_startup = autobackup_startup_CB.IsChecked.Value;
 			SettingsVars.autobackup_exitESO = autobackup_exitESO_CB.IsChecked.Value;
 			SettingsVars.SaveConfig();
 			this.Close();
+		}
+
+		private void maxdaybackup_TB_PreviewTextInput(object sender, TextCompositionEventArgs e)
+		{
+			if (!Char.IsDigit(e.Text, 0))
+			{
+				e.Handled = true;
+			}
 		}
 	}
 }
