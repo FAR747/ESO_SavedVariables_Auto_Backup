@@ -244,9 +244,17 @@ namespace ESO_SavedVariables_Auto_backup
 
 		private void Createback_Button_Click(object sender, RoutedEventArgs e)
 		{
-			Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-			string name = String.Format("Backup_{0}", unixTimestamp);
-			Backups.Create(LoadedProfile, name, true);
+			bool create = true;
+			if (AutoBackups.ESORunned)
+			{
+				create = esorunningmessagebox(0);
+			}
+			if (create)
+			{
+				Int64 unixTimestamp = (Int64)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+				string name = String.Format("Backup_{0}", unixTimestamp);
+				Backups.Create(LoadedProfile, name, true);
+			}
 		}
 
 		private void Backuplist_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -360,6 +368,41 @@ namespace ESO_SavedVariables_Auto_backup
 		{
 			System.Diagnostics.Trace.WriteLine("App close void");
 			System.Windows.Application.Current.Shutdown();
+		}
+
+		public static bool esorunningmessagebox(int messageid)
+		{
+			string message = "";
+			bool send = true;
+			switch (messageid)
+			{
+				case 0: //Create Backup
+					message = "Are you sure you want to create a backup?\n\nThe game is running. To make a backup of the current parameters, you need to go to the character selection screen, otherwise the changes in the current game session will not be saved in the backup.";
+					break;
+				case 1: //Restore backup
+					message = "Are you sure you want to restore a backup?\n\nThe game is running. To restore the backup, you need to go to the character selection screen. Otherwise, the game will overwrite the data.";
+					break;
+				default:
+					System.Diagnostics.Trace.WriteLine(String.Format("ERROR: esorunningmessagebox message index {0} not found", messageid));
+					send = false;
+					break;
+			}
+			if (send)
+			{
+				MessageBoxResult mesbox = MessageBox.Show(message,"Warning! ESO Running", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+				if (mesbox == MessageBoxResult.Yes)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }

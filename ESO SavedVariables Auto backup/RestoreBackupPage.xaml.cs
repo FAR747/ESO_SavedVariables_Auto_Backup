@@ -65,32 +65,40 @@ namespace ESO_SavedVariables_Auto_backup
 
 		private void RestoreBackupBTN_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want to start restore?\n\nCheck all parameters. Please note, this action cannot be undone!", "Start restore", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-			bool start = false;
-			switch (result)
+			bool restore = true;
+			if (AutoBackups.ESORunned)
 			{
-				case MessageBoxResult.Yes:
-					start = true;
-					break;
-				case MessageBoxResult.No:
-					start = false;
-					break;
+				restore = MainWindow.esorunningmessagebox(1);
 			}
-
-			if (start)
+			if (restore)
 			{
-				CancelBTN.IsEnabled = false;
-				RestoreBackupBTN.IsEnabled = false;
-				gPB1.Visibility = Visibility.Visible;
-				gMessage_Label.Visibility = Visibility.Visible;
-				bool createbackup = CreateBackup_CB.IsChecked.Value;
-				bool clearSVFolder = ClearSVFolder_CB.IsChecked.Value;
-				gLog_Label.Visibility = Visibility.Visible;
-				Task t = Task.Run(() => RestoreBackup(createbackup,clearSVFolder,gSVP,gpath,gname));
-				t.ContinueWith((BakcupTask) =>
+				MessageBoxResult result = MessageBox.Show("Are you sure you want to start restore?\n\nCheck all parameters. Please note, this action cannot be undone!", "Start restore", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+				bool start = false;
+				switch (result)
 				{
-					Restore_complete();
-				});
+					case MessageBoxResult.Yes:
+						start = true;
+						break;
+					case MessageBoxResult.No:
+						start = false;
+						break;
+				}
+
+				if (start)
+				{
+					CancelBTN.IsEnabled = false;
+					RestoreBackupBTN.IsEnabled = false;
+					gPB1.Visibility = Visibility.Visible;
+					gMessage_Label.Visibility = Visibility.Visible;
+					bool createbackup = CreateBackup_CB.IsChecked.Value;
+					bool clearSVFolder = ClearSVFolder_CB.IsChecked.Value;
+					gLog_Label.Visibility = Visibility.Visible;
+					Task t = Task.Run(() => RestoreBackup(createbackup, clearSVFolder, gSVP, gpath, gname));
+					t.ContinueWith((BakcupTask) =>
+					{
+						Restore_complete();
+					});
+				}
 			}
 		}
 
