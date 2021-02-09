@@ -24,8 +24,8 @@ namespace ESO_SavedVariables_Auto_backup
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public static int VERSION_CODE = 2;
-		public static string VERSION_NAME = "1.1";
+		public static int VERSION_CODE = 3;
+		public static string VERSION_NAME = "1.2 Unstable";
 
 		public FileIniDataParser gIniParser = new FileIniDataParser();
 		public static SVProfile LoadedProfile;
@@ -372,6 +372,10 @@ namespace ESO_SavedVariables_Auto_backup
 
 		public static bool esorunningmessagebox(int messageid)
 		{
+			if (SettingsVars.ESORunning_MessageDisable)
+			{
+				return true;
+			}
 			string message = "";
 			bool send = true;
 			switch (messageid)
