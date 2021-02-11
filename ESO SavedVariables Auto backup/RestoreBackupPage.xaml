@@ -26,6 +26,11 @@
             <LineBreak/>
             <Run Text="Exit to the main menu (go to the character selection menu) to restore the backup normally. Otherwise, the restoration will not bring results." Foreground="White"/>
         </TextBlock>
+        <CheckBox x:Name="EnableCustomRestore_CB" Content="Enable selection of files to restore" HorizontalAlignment="Left" Margin="377,143,0,0" VerticalAlignment="Top" Foreground="White" ToolTip="Includes the ability to select files to restore" Click="EnableCustomRestore_CB_Click"/>
+        <TextBlock x:Name="SelectionFiles_Menu_TB" HorizontalAlignment="Left" Margin="581,143,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Foreground="White">
+            <Hyperlink x:Name="SelectionFiles_SAll_HL" Click="SelectionFiles_SAll_HL_Click">Select all</Hyperlink>
+            <Hyperlink x:Name="SelectionFiles_USAll_HL" Click="SelectionFiles_USAll_HL_Click">Unselect</Hyperlink>
+        </TextBlock>
 
     </Grid>
 </Page>
