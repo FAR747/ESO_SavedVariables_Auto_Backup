@@ -24,8 +24,8 @@ namespace ESO_SavedVariables_Auto_backup
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public static int VERSION_CODE = 3;
-		public static string VERSION_NAME = "1.2 Unstable";
+		public static int VERSION_CODE = 4;
+		public static string VERSION_NAME = "1.2";
 
 		public FileIniDataParser gIniParser = new FileIniDataParser();
 		public static SVProfile LoadedProfile;
