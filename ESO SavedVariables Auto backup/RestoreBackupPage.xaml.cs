@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ESO_SavedVariables_Auto_backup
 {
@@ -33,13 +25,14 @@ namespace ESO_SavedVariables_Auto_backup
 			PB1.Visibility = Visibility.Hidden;
 			gPB1 = PB1;
 			Message_label.Visibility = Visibility.Hidden;
+			SelectionFiles_Menu_TB.Visibility = Visibility.Hidden;
 			gMessage_Label = Message_label;
 			Log_label.Visibility = Visibility.Hidden;
 			gLog_Label = Log_label;
 			gSVP = SVP;
 			gpath = path;
 			gname = name;
-			RestoreBackup_Label.Content = String.Format(PageLabel_Def, name.Replace("_","__"), SVP.Name);
+			RestoreBackup_Label.Content = String.Format(PageLabel_Def, name.Replace("_", "__"), SVP.Name);
 			if (AutoBackups.ESORunned)
 			{
 				ESORunning_message.Visibility = Visibility.Visible;
@@ -51,10 +44,17 @@ namespace ESO_SavedVariables_Auto_backup
 			List<string> files = Backups.getfilesinbackup(path);
 			foreach (String file in files)
 			{
-				ListBoxItem item = new ListBoxItem();
+				/*ListBoxItem item = new ListBoxItem();
 				item.Content = file;
 				item.Foreground = new SolidColorBrush(Colors.White);
-				BackupFileslist.Items.Add(item);
+				*/
+				CheckBox cbitem = new CheckBox();
+				cbitem.IsChecked = true;
+				cbitem.Content = file;
+				cbitem.IsEnabled = false;
+				cbitem.Foreground = new SolidColorBrush(Colors.White);
+
+				BackupFileslist.Items.Add(cbitem);
 			}
 		}
 
@@ -65,36 +65,61 @@ namespace ESO_SavedVariables_Auto_backup
 
 		private void RestoreBackupBTN_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult result = MessageBox.Show("Are you sure you want to start restore?\n\nCheck all parameters. Please note, this action cannot be undone!", "Start restore", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-			bool start = false;
-			switch (result)
+			bool restore = true;
+			if (AutoBackups.ESORunned)
 			{
-				case MessageBoxResult.Yes:
-					start = true;
-					break;
-				case MessageBoxResult.No:
-					start = false;
-					break;
+				restore = MainWindow.esorunningmessagebox(1);
 			}
-
-			if (start)
+			if (restore)
 			{
-				CancelBTN.IsEnabled = false;
-				RestoreBackupBTN.IsEnabled = false;
-				gPB1.Visibility = Visibility.Visible;
-				gMessage_Label.Visibility = Visibility.Visible;
-				bool createbackup = CreateBackup_CB.IsChecked.Value;
-				bool clearSVFolder = ClearSVFolder_CB.IsChecked.Value;
-				gLog_Label.Visibility = Visibility.Visible;
-				Task t = Task.Run(() => RestoreBackup(createbackup,clearSVFolder,gSVP,gpath,gname));
-				t.ContinueWith((BakcupTask) =>
+				MessageBoxResult result = MessageBox.Show("Are you sure you want to start restore?\n\nCheck all parameters. Please note, this action cannot be undone!", "Start restore", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+				bool start = false;
+				switch (result)
 				{
-					Restore_complete();
-				});
+					case MessageBoxResult.Yes:
+						start = true;
+						break;
+					case MessageBoxResult.No:
+						start = false;
+						break;
+				}
+
+				if (start)
+				{
+					CancelBTN.IsEnabled = false;
+					RestoreBackupBTN.IsEnabled = false;
+					gPB1.Visibility = Visibility.Visible;
+					gMessage_Label.Visibility = Visibility.Visible;
+					bool createbackup = CreateBackup_CB.IsChecked.Value;
+					bool clearSVFolder = ClearSVFolder_CB.IsChecked.Value;
+					gLog_Label.Visibility = Visibility.Visible;
+					List<string> Restore_TrueFiles = new List<string>();
+					if (EnableCustomRestore_CB.IsChecked.Value)
+					{
+						System.Diagnostics.Trace.WriteLine("Start restore via custom. Files:");
+						foreach (CheckBox CB in BackupFileslist.Items)
+						{
+							if (CB.IsChecked.Value)
+							{
+								Restore_TrueFiles.Add(CB.Content.ToString());
+								System.Diagnostics.Trace.WriteLine(CB.Content.ToString());
+							}
+						}
+					}
+					else
+					{
+						Restore_TrueFiles = null;
+					}
+					Task t = Task.Run(() => RestoreBackup(createbackup, clearSVFolder, gSVP, gpath, gname, Restore_TrueFiles));
+					t.ContinueWith((BakcupTask) =>
+					{
+						Restore_complete();
+					});
+				}
 			}
 		}
 
-		static void RestoreBackup(bool createbackup, bool clearSVFolder,SVProfile SVP, string path, string name)
+		void RestoreBackup(bool createbackup, bool clearSVFolder, SVProfile SVP, string path, string name, List<string> Restore_TrueFiles)
 		{
 			if (createbackup)
 			{
@@ -117,7 +142,52 @@ namespace ESO_SavedVariables_Auto_backup
 				}
 			}
 			MainWindow.gRestoreBackupFrame.Dispatcher.BeginInvoke((Action)(() => MainWindow.gRestoreBackupPage.gLog_Label.Content = "Restore Backup"));
-			Backups.RestoreBackup(path, SVP.Path);
+			Backups.RestoreBackup(path, SVP.Path, Restore_TrueFiles);
+		}
+
+		private void EnableCustomRestore_CB_Click(object sender, RoutedEventArgs e)
+		{
+			if (EnableCustomRestore_CB != null)
+			{
+				changeCBstatesinFileList(EnableCustomRestore_CB.IsChecked.Value);
+				if (EnableCustomRestore_CB.IsChecked.Value)
+				{
+					SelectionFiles_Menu_TB.Visibility = Visibility.Visible;
+				}
+				else
+				{
+					SelectionFiles_Menu_TB.Visibility = Visibility.Hidden;
+				}
+			}
+		}
+
+		private void changeCBstatesinFileList(bool isenable)
+		{
+			foreach (CheckBox cb in BackupFileslist.Items)
+			{
+				cb.IsEnabled = isenable;
+				if (!isenable)
+				{
+					cb.IsChecked = true;
+				}
+			}
+		}
+		private void allcheckinFileList(bool ischecked)
+		{
+			foreach (CheckBox cb in BackupFileslist.Items)
+			{
+				cb.IsChecked = ischecked;
+			}
+		}
+
+		private void SelectionFiles_SAll_HL_Click(object sender, RoutedEventArgs e)
+		{
+			allcheckinFileList(true);
+		}
+
+		private void SelectionFiles_USAll_HL_Click(object sender, RoutedEventArgs e)
+		{
+			allcheckinFileList(false);
 		}
 
 		static void Restore_complete()

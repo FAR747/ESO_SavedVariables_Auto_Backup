@@ -25,6 +25,7 @@ namespace ESO_SavedVariables_Auto_backup
 			Label_version.Content = String.Format("Version {0} ({1})", MainWindow.VERSION_NAME, MainWindow.VERSION_CODE);
 			startupWindows_CB.IsChecked = SettingsFuncs.getstartupwindows();
 			autobackup_startup_CB.IsChecked = SettingsVars.autobackup_startup;
+			ESORunning_MessageDisable_CB.IsChecked = SettingsVars.ESORunning_MessageDisable;
 			autobackup_exitESO_CB.IsChecked = SettingsVars.autobackup_exitESO;
 			autodeletebackups_CB.IsChecked = SettingsVars.autodeletebackups;
 			maxdaybackup_TB.Text = SettingsVars.maxdaybackup.ToString();
@@ -51,6 +52,7 @@ namespace ESO_SavedVariables_Auto_backup
 				maxdaysback = 30;
 			}
 			SettingsVars.maxdaybackup = maxdaysback;
+			SettingsVars.ESORunning_MessageDisable = ESORunning_MessageDisable_CB.IsChecked.Value;
 
 			SettingsVars.autobackup_startup = autobackup_startup_CB.IsChecked.Value;
 			SettingsVars.autobackup_exitESO = autobackup_exitESO_CB.IsChecked.Value;

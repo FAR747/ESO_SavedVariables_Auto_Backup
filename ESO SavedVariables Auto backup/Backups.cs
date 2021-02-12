@@ -72,7 +72,7 @@ namespace ESO_SavedVariables_Auto_backup
 			
 		}
 
-		public static void RestoreBackup(string path, string outputpath)
+		public static void RestoreBackup(string path, string outputpath, List<string> truefiles)
 		{
 			if (!File.Exists(path))
 			{
@@ -87,7 +87,27 @@ namespace ESO_SavedVariables_Auto_backup
 					Directory.CreateDirectory(Path.GetDirectoryName(completeFileName));
 					continue;
 				}
-				file.ExtractToFile(completeFileName, true);
+				bool fileex = true;
+
+				if (truefiles != null)
+				{
+					System.Diagnostics.Trace.WriteLine(String.Format("Check File: {0}", file.Name));
+					if (truefiles.Exists(e => e == file.Name))
+					{
+						System.Diagnostics.Trace.WriteLine(String.Format("Check File: {0} - OK", file.Name));
+						fileex = true;
+					}
+					else
+					{
+						System.Diagnostics.Trace.WriteLine(String.Format("Check File: {0} - Not Found", file.Name));
+						fileex = false;
+					}
+				}
+				if (fileex)
+				{
+					System.Diagnostics.Trace.WriteLine(String.Format("Restore File: {0}", file.Name));
+					file.ExtractToFile(completeFileName, true);
+				}
 			}
 		}
 		public static List<string> getfilesinbackup(string path)

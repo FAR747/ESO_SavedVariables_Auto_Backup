@@ -22,6 +22,7 @@ namespace ESO_SavedVariables_Auto_backup
 		#region settings
 		public static bool autodeletebackups = false;
 		public static int maxdaybackup = 30;
+		public static bool ESORunning_MessageDisable = false;
 
 		public static bool autobackup_startup = false;
 		public static bool autobackup_exitESO = false;
@@ -37,10 +38,13 @@ namespace ESO_SavedVariables_Auto_backup
 			gConfig.Sections.AddSection("config");
 			gConfig["config"].AddKey("ESODir", ESODir);
 			gConfig["config"].AddKey("BackupDir", Backupdir);
+			gConfig["config"].AddKey("ESORunning_MessageDisable", "false");
 			gConfig["config"].AddKey("Version", MainWindow.VERSION_CODE.ToString());
+			
 
 			gConfig["config"].AddKey("autobackup_startup", "false");
 			gConfig["config"].AddKey("autobackup_exitESO", "false");
+
 			FileIniDataParser parser = new FileIniDataParser();
 			parser.WriteFile(appdata + "/ESVAB.cfg", gConfig);
 		}
@@ -87,6 +91,14 @@ namespace ESO_SavedVariables_Auto_backup
 				{
 					savecfg = true;
 				}
+				if (gConfig["config"]["ESORunning_MessageDisable"] != null)
+				{
+					ESORunning_MessageDisable = bool.Parse(gConfig["config"]["ESORunning_MessageDisable"]);
+				}
+				else
+				{
+					savecfg = true;
+				}
 				if (savecfg)
 				{
 					SaveConfig();
@@ -105,6 +117,7 @@ namespace ESO_SavedVariables_Auto_backup
 			gConfig["config"].AddKey("autobackup_exitESO", autobackup_exitESO.ToString());
 			gConfig["config"].AddKey("autodeletebackups", autodeletebackups.ToString());
 			gConfig["config"].AddKey("maxdaybackup", maxdaybackup.ToString());
+			gConfig["config"].AddKey("ESORunning_MessageDisable", ESORunning_MessageDisable.ToString());
 			FileIniDataParser parser = new FileIniDataParser();
 			parser.WriteFile(configpath, gConfig);
 		}

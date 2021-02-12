@@ -44,8 +44,8 @@ How to set up automatic backup:[/SIZE]
 [*]In the window that opens, you can select 2 options for recovery: 
 [B]Backup current SavedVariables[/B] - Creates a backup of the current addon settings. (Recommended). 
 [B]Clear SavedVariables folder[/B] - Clears the SavedVariables folder before unpacking the backup. If disabled, existing files will simply be replaced.
-[*][B](If the game is running)[/B] You need to logout at least (go to the character selection menu of the game) so that unpacking the backup makes sense.
-Click on the Restore button and confirm your intentions.
+[B]Enable selection of files to restore[/B] - Includes the ability to choose which files to restore from backup.
+[*][B](If the game is running)[/B] You need to go to the main menu of the game so that unpacking the backup makes sense. Otherwise, the game will overwrite SavedVariables with the current data.
 [*]Click on the Restore button and confirm your intentions.
 [*]Wait until the program unpacks the backup. [B]DO NOT[/B] close the program during this process!
 [/LIST]
